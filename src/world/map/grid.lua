@@ -19,13 +19,6 @@ function Grid:new(rows, cols)
     end
 end
 
-function Grid:reset()
-    for __, cell in pairs(self.cells) do
-        cell.distance = nil
-        cell.goal     = nil
-    end
-end
-
 -- Check if cell is in bounds
 --
 function Grid:inBounds(row, col)

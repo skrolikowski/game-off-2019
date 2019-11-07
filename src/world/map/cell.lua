@@ -10,6 +10,7 @@ local Cell   = Modern:extend()
 function Cell:new(row, col)
     self.row = row
     self.col = col
+    self.active = true
 end
 
 -- Get cell index
@@ -64,7 +65,7 @@ function Cell:getNeighbors()
     }
 
     return _:filter(neighbors, function(v, k)
-        return _:isTruthy(v) and not v.wall
+        return _:isTruthy(v) and v.active
     end)
 end
 
@@ -93,15 +94,7 @@ end
 -- Draw the cell.
 --
 function Cell:draw()
-    local x, y, w, h = self:container()
-
-    if self.goal then
-        love.graphics.setColor(Config.color.debug)
-        love.graphics.rectangle('fill', x, y, w, h)
-    elseif self.wall then
-        love.graphics.setColor(Config.color.black)
-        love.graphics.rectangle('fill', x, y, w, h)
-    end
+    local x, y = self:position()
 
     love.graphics.setColor(Config.color.black)
     love.graphics.printf(self.distance or 0, x, y + Config.map.cell.size / 3, Config.map.cell.size, 'center')

@@ -5,11 +5,21 @@ require 'lua-lander'
 -- Timer  = require 'libs.hump.timer'
 --
 
-Queue  = require 'utils.queue'
-Cell   = require 'map.cell'
-Grid   = require 'map.grid'
-Vec2   = require 'entities.vec2'
-Entity = require 'entities.entity'
+-- Google
+-- ID 7-5102000028312
+
+World         = require 'src.world'
+Utils         = require 'src.utils'
+EntityManager = require 'src.entities'
+--
+
+-- Vendor libraries
+Bump = require 'vendor.bump.bump'  -- bump.lua
+                                   -- Author: kikito
+                                   -- Repo: https://github.com/kikito/bump.lua
+STI  = require 'vendor.sti.sti'    -- Simple-Tiled-Implementation
+                                   -- Author: karai17
+                                   -- Repo: https://github.com/karai17/Simple-Tiled-Implementation
 --
 
 function love.conf(t)

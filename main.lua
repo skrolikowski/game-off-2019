@@ -12,7 +12,12 @@ Config = {
         black = { _:color('black')    },
         white = { _:color('white')    },
         bg    = { _:color('gray-100') },
-        debug = { _:color('red-500')  }
+        debug = { _:color('red-500')  },
+        entities = {
+            enemy   = { _:color('orange-400') },
+            environ = { _:color('green-400')  },
+            goal    = { _:color('yellow-500') }
+        }
     }
 }
 Config.map.rows = _.__floor(Config.height / Config.map.cell.size)
@@ -25,130 +30,82 @@ love.graphics.setBackgroundColor(Config.color.bg)
 --
 
 function love.load()
-    Game.grid     = Grid(Config.map.rows, Config.map.cols)
-    -- Game.timer    = Timer.new()
-    Game.entities = {}
-
-
-    -- local goal = Game.grid:getCell(4, 5)
-    -- goal.goal = true
-
-    -- Game.grid:getCell(2, 3).wall = true
-    -- Game.grid:getCell(2, 4).wall = true
-    -- Game.grid:getCell(2, 5).wall = true
-    -- Game.grid:getCell(2, 6).wall = true
-    -- Game.grid:getCell(3, 3).wall = true
-    -- Game.grid:getCell(4, 3).wall = true
-    -- Game.grid:getCell(5, 3).wall = true
-    -- Game.grid:getCell(6, 3).wall = true
-
-    -- pathfinder(goal)
-    -- spawnEnemies()
+    Game.world = World()
+    Game.grid  = Grid(Config.map.rows, Config.map.cols)
+    Game.goal  = nil
 end
 
 function love.update(dt)
-    -- Game.timer:update(dt)
-
-    -- remove entities
-    for i = #Game.entities, 1, -1 do
-        if Game.entities[i].remove then
-            table.remove(Game.entities, i)
-        end
-    end
-
-    -- update entities
-    for __, entity in pairs(Game.entities) do
-        entity:update(dt)
-    end
+    Game.world:update(dt)
 end
 
 function love.draw()
     Game.grid:draw()
-
-    -- draw entities
-    for __, entity in pairs(Game.entities) do
-        entity:draw()
-    end
+    Game.world:draw()
 end
 
 -----------------------------------------------
 function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
-    end
-
-    if key == 'space' then
-        spawnEnemies()
+    elseif key == 'e' then
+        spawnEnemy(Game.grid:getCellByLocation(love.mouse.getPosition()))
+    elseif key == 'space' then
+        pathfinder(Game.grid:getCellByLocation(love.mouse.getPosition()))
     end
 end
 
 function love.mousepressed(x, y, button)
-    local cell = Game.grid:getCellByLocation(x, y)
+    local cell   = Game.grid:getCellByLocation(x, y)
+    local cx, cy = cell:center()
 
     if button == 1 then
-        cell.wall = not cell.wall
+        Game.world:addEntity(Wall(cx, cy))
+        cell.active = false
     elseif button == 2 then
-        pathfinder(cell)
-        cell.goal = true
-    elseif button == 3 then
-        spawnEnemies()
+        setGoal(Game.grid:getCellByLocation(love.mouse.getPosition()))
+        resetEnemyPaths()
     end
 end
 
 -----------------------------------------------
-function spawnEnemies()
-    local cells = {
-        Game.grid:getCellByLocation(16, 16),
-        Game.grid:getCellByLocation(Config.width - 16, 16),
-        Game.grid:getCellByLocation(16, Config.height - 16),
-        Game.grid:getCellByLocation(Config.width - 16, Config.height - 16)
-    }
-
-    for __, cell in pairs(cells) do
-        local entity
-
-        entity = Entity(cell:center())
-        entity:maproute(cell)
-
-        table.insert(Game.entities, entity)
-    end
+function spawnEnemy(cell)
+    Game.world:addEntity(Pawn(cell:center()))
 end
 
------------------------------------------------
-function pathfinder(goal)
-    Game.grid:reset()
+function resetEnemyPaths()
+    local entities, len = Game.world.world:getItems()
 
-    local queue = Queue(goal)
-    local distance = {}
-    local current
-
-    goal.distance = 0
-
-    while not queue:isEmpty() do
-        current = queue:get()
-
-        for __, cell in pairs(current:getNeighbors()) do
-            if cell.distance == nil then
-                queue:put(cell)
-                cell.distance = 1 + current.distance
-                cell.comeFrom = current
-            end
+    for __, entity in pairs(entities) do
+        if entity.maproute then
+            entity:maproute()
         end
     end
 end
 
------------------------------------------------
--- function maproute(cell)
---     local points = { cell:center() }
---     local cx, cy
+function setGoal(cell)
+    if Game.goal then
+        Game.world:removeEntity(Game.goal)
+    end
 
---     while cell.comeFrom do
---         cell   = cell.comeFrom
---         cx, cy = cell:center()
+    Game.goal = Goal(cell:center())
+    Game.world:addEntity(Game.goal)
+    ---
+    local queue = Queue(cell)
+    local distance = {}
+    local current
 
---         table.insert(points, cx)
---         table.insert(points, cy)
---     end
+    cell.distance = 0
 
---     return points
--- end
+    while not queue:isEmpty() do
+        current = queue:get()
+
+        for __, neighbor in pairs(current:getNeighbors()) do
+            if neighbor.distance == nil then
+                queue:put(neighbor)
+                neighbor.distance = 1 + current.distance
+                neighbor.comeFrom = current
+            end
+        end
+    end
+end
