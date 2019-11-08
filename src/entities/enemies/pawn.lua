@@ -2,7 +2,7 @@
 -- Shane Krolikowski
 --
 
-local Enemy = require 'src.entities.enemy'
+local Enemy = require 'src.entities.enemies.enemy'
 local Pawn  = Enemy:extend()
 
 function Pawn:new(x, y)

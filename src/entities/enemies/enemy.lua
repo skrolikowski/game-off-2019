@@ -6,12 +6,12 @@ local Entity = require 'src.entities.entity'
 local Enemy  = Entity:extend()
 
 function Enemy:new(x, y)
-    self.name   = 'enemy'
-    self.pos    = Vec2(x, y)
-    self.color  = Config.color.entities.enemy
-    self.health = 10
+    self.category = 'enemy'
+    self.pos      = Vec2(x, y)
+    self.color    = Config.color.entities.enemy
+    self.health   = 10
 
-    -- physics
+    -- Movement
     self.vel      = Vec2()
     self.acc      = Vec2()
     self.mass     = 1
@@ -19,17 +19,13 @@ function Enemy:new(x, y)
     self.maxSpeed = 200
     self.maxForce = 20
 
-    -- pathing
+    -- Behavior
     self.points = {}
     self.route  = nil
     self.index  = 0
     self.steer  = Steer(self)
 
     self:maproute()
-end
-
-function Enemy:takeDamange(damage)
-    self.health = self.health - damage
 end
 
 -- Apply force
@@ -64,10 +60,23 @@ function Enemy:nextPosition(dt)
     return self.pos + self.vel * dt
 end
 
+-- Collision resoluation
+--
+function Enemy:collidedWith(other, collision)
+	if other.name == 'goal' then
+		self:destroy(other)
+		other:takeDamage(self, 1)
+	end
+end
+
 -- Update entity
 --
 function Enemy:update(dt)
     Game.world:moveEntity(self, self:nextPosition(dt))
+
+    if not self:inBounds() then
+        self:destroy(nil)
+    end
 end
 
 -- Draw entity
@@ -123,15 +132,6 @@ function Enemy:nextTarget()
     self.index = index
 
     return target, false
-end
-
--- Collision resoluation
---
-function Enemy:collidedWith(other, collision)
-    if other.name == 'goal' then
-        self:destroy(other)
-        other:takeDamage(self, 1)
-    end
 end
 
 return Enemy

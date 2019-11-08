@@ -9,14 +9,17 @@ Config = {
         }
     },
     color = {
-        black = { _:color('black')    },
-        white = { _:color('white')    },
-        bg    = { _:color('gray-100') },
-        debug = { _:color('red-500')  },
+        black  = { _:color('black')      },
+        white  = { _:color('white')      },
+        bg     = { _:color('gray-100')   },
+        debug  = { _:color('red-500')    },
+        target = { _:color('red-800')    },
         entities = {
-            enemy   = { _:color('orange-400') },
-            environ = { _:color('green-400')  },
-            goal    = { _:color('yellow-500') }
+            enemy      = { _:color('orange-400') },
+            environ    = { _:color('green-400')  },
+            goal       = { _:color('yellow-500') },
+            tower      = { _:color('gray-800')   },
+            projectile = { _:color('yellow-500') }
         }
     }
 }
@@ -50,8 +53,8 @@ function love.keypressed(key)
         love.event.quit()
     elseif key == 'e' then
         spawnEnemy(Game.grid:getCellByLocation(love.mouse.getPosition()))
-    elseif key == 'space' then
-        pathfinder(Game.grid:getCellByLocation(love.mouse.getPosition()))
+    elseif key == 't' then
+        spawnTower(Game.grid:getCellByLocation(love.mouse.getPosition()))
     end
 end
 
@@ -71,6 +74,10 @@ end
 -----------------------------------------------
 function spawnEnemy(cell)
     Game.world:addEntity(Pawn(cell:center()))
+end
+
+function spawnTower(cell)
+    Game.world:addEntity(Light(cell:center()))
 end
 
 function resetEnemyPaths()

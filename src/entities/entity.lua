@@ -9,6 +9,17 @@ function Entity:new()
     --
 end
 
+-- Entity top/left position
+--
+function Entity:position()
+    local cx, cy = self:center()
+    local w, h   = self:dimensions()
+    local x      = cx - w / 2
+    local y      = cy - h / 2
+
+    return x, y
+end
+
 -- Entity center position
 --
 function Entity:center()
@@ -21,6 +32,21 @@ function Entity:dimensions()
     return self.width, self.height
 end
 
+function Entity:inBounds()
+    return Game.world:bounds():contains(self:bounds())
+end
+
+function Entity:bounds()
+    local cx, cy   = self:center()
+    local w, h     = self:dimensions()
+    local rotation = self.rotation or 0
+
+    w = w * (self.bx or 1)
+    h = h * (self.by or 1)
+
+    return AABB:compute(cx, cy, w, h, rotation)
+end
+
 -- Entity's container
 --
 function Entity:container()
@@ -30,6 +56,16 @@ function Entity:container()
     local y      = cy - h / 2
 
     return x, y, w, h
+end
+
+-- Take damage
+--
+function Entity:takeDamange(other, damage)
+    self.health = self.health - damage
+
+    if self.health <= 0 then
+        self:destroy(other)
+    end
 end
 
 -- Destroy entity

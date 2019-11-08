@@ -90,6 +90,18 @@ function World:convertToEntityPosition(x, y, w, h)
            y + h / 2
 end
 
+-- Query segment for entities
+--
+function World:querySegment(x1, y1, x2, y2, filter)
+    return self.world:querySegment(x1, y1, x2, y2, filter)
+end
+
+-- Query rectangle for entities
+--
+function World:queryRect(x, y, width, height, filter)
+    return self.world:queryRect(x, y, width, height, filter)
+end
+
 -- Query entire screen for entities
 --
 function World:queryScreen()

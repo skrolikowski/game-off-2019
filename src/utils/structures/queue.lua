@@ -1,4 +1,4 @@
--- Queue Helper
+-- Queue - Data Structure
 -- Shane Krolikowski
 --
 
@@ -15,10 +15,6 @@ end
 
 function Queue:peek()
     return self.elements[1]
-end
-
-function Queue:peekLast()
-    return self.elements[#self.elements]
 end
 
 function Queue:get()

@@ -85,10 +85,27 @@ function Vec2:limit(max)
     return self
 end
 
+-- Dot product
+--
+function Vec2:dot(other)
+    return self.x * other.x + self.y * other.y
+end
+
+-- Angle between the Vec2 and another
+--
+function Vec2:angleBetween(other)
+    local dotmag2
+    
+    dotmag2 = self:dot(other) / (self:magnitude() * other:magnitude())
+    dotmag2 = _.clamp(dotmag2, -1, 1)
+
+    return math.acos(dotmag2)
+end
+
 -- Current heading
 --
 function Vec2:heading()
-    return math_atan2(self.y, self.x)
+    return math.atan2(self.y, self.x)
 end
 
 -- Set length
@@ -96,15 +113,15 @@ end
 function Vec2:setMagnitude(mag)
     local rotation = self:heading()
 
-    self.x = math_cos(rotation) * mag
-    self.y = math_sin(rotation) * mag
+    self.x = _.__cos(rotation) * mag
+    self.y = _.__sin(rotation) * mag
 end
 
 -- Rotate
 --
 function Vec2:rotate(rotation)
-    local cos  = math_cos(rotation)
-    local sin  = math_sin(rotation)
+    local cos  = _.__cos(rotation)
+    local sin  = _.__sin(rotation)
     local x, y = self:unpack()
 
     self.x = cos * x - sin * y
