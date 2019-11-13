@@ -8,9 +8,12 @@ local Cell   = Modern:extend()
 -- Create new cell
 --
 function Cell:new(row, col)
-    self.row = row
-    self.col = col
-    self.active = true
+    self.row       = row
+    self.col       = col
+    self.bounds    = self:bounds()
+    self.walkable  = false
+    self.leapable  = false
+    self.clickable = false
 end
 
 -- Get cell index
@@ -35,6 +38,15 @@ function Cell:position()
     return x, y
 end
 
+-- Get cell's bounding box
+--
+function Cell:bounds()
+    local x, y = self:position()
+    local w, h = self:dimensions()
+
+    return AABB(x, y, x + w, y + h)
+end
+
 -- Get cell center coordinates
 --
 function Cell:center()
@@ -47,6 +59,12 @@ function Cell:center()
     return x, y
 end
 
+-- Is cell within requested bounds?
+--
+function Cell:within(bounds)
+    return bounds:contains(self.bounds)
+end
+
 -- Get cell's position and dimension
 --
 function Cell:container()
@@ -56,6 +74,8 @@ function Cell:container()
     return x, y, w, h
 end
 
+-- Get walkable neighboring cells
+--
 function Cell:getNeighbors()
     local neighbors = {
         self:relative(-1,  0),  -- up
@@ -64,8 +84,9 @@ function Cell:getNeighbors()
         self:relative( 0,  1),  -- right
     }
 
+    -- Gather walkable neighbors..
     return _:filter(neighbors, function(v, k)
-        return _:isTruthy(v) and v.active
+        return _:isTruthy(v) and v.walkable
     end)
 end
 
@@ -94,10 +115,19 @@ end
 -- Draw the cell.
 --
 function Cell:draw()
-    local x, y = self:position()
+    if self.clickable then
+        love.graphics.setColor(Config.color.white)
+        love.graphics.rectangle('line', self:container())
+    end
 
-    love.graphics.setColor(Config.color.black)
-    love.graphics.printf(self.distance or 0, x, y + Config.map.cell.size / 3, Config.map.cell.size, 'center')
+    -------
+
+    if self.distance then
+        local x, y = self:position()
+
+        love.graphics.setColor(Config.color.black)
+        love.graphics.printf(self.distance, x, y + Config.map.cell.size / 3, Config.map.cell.size, 'center')
+    end
 end
 
 return Cell

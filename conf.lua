@@ -1,6 +1,14 @@
 require 'lua-lander'
 --
 
+-- Vendor libraries
+Bump = require 'vendor.bump.bump'  -- bump.lua
+                                   -- Author: kikito
+                                   -- Repo: https://github.com/kikito/bump.lua
+-- STI  = require 'vendor.sti.sti'    -- Simple-Tiled-Implementation
+                                   -- Author: karai17
+                                   -- Repo: https://github.com/karai17/Simple-Tiled-Implementation
+
 Inspect = require 'inspect'
 Timer   = require 'hump.timer'
 --
@@ -11,15 +19,6 @@ Timer   = require 'hump.timer'
 World         = require 'src.world'
 Utils         = require 'src.utils'
 EntityManager = require 'src.entities'
---
-
--- Vendor libraries
-Bump = require 'vendor.bump.bump'  -- bump.lua
-                                   -- Author: kikito
-                                   -- Repo: https://github.com/kikito/bump.lua
-sti  = require 'vendor.sti.sti'    -- Simple-Tiled-Implementation
-                                   -- Author: karai17
-                                   -- Repo: https://github.com/karai17/Simple-Tiled-Implementation
 --
 
 function love.conf(t)

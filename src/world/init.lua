@@ -13,14 +13,61 @@ local World  = Modern:extend()
 -- Create new world
 --
 function World:new()
+    local STI  = require 'vendor.sti.sti'
+
     self.world  = Bump.newWorld()
-    self.map    = sti('res/A.lua')
+    self.map    = STI("res/map/A.lua")
     self.width  = self.map.width * self.map.tilewidth
     self.height = self.map.height * self.map.tileheight
 
-    -- SpawnTiles(self.map.layers['Environment'].objects)
-    -- SpawnEnvironment(self.map.layers['Environment'].objects)
-    -- SpawnEntities()
+    self:markTileTrait('walkable', self.map.layers['Monsters'].objects)
+    self:markTileTrait('leapable', self.map.layers['Leaps'].objects)
+    self:markTileTrait('clickable', self.map.layers['Priests'].objects)
+    self:spawnGoal(self.map.layers['Goals'].objects)
+    -- self:spawnProps(self.map.layers['Props'].objects)
+    -- self:spawnSpawners(self.map.layers['Spawns'].objects)
+end
+
+function World:markTileTrait(trait, objects)
+    for __, obj in pairs(objects) do
+        local objBounds = AABB(obj.x, obj.y, obj.x + obj.width, obj.y + obj.height)
+        local cellsWithinBounds = Game.grid:getCellsInBounds(objBounds)
+
+        for __, cell in pairs(cellsWithinBounds) do
+            cell[trait] = true
+        end
+    end
+end
+
+function World:spawnGoal(objects)
+    local goal = objects[1]
+    local cell = Game.grid:getCellByLocation(goal.x + goal.width / 2, goal.y + goal.height / 2)
+
+    -- (re)set goal
+    if Game.goal then
+        self:removeEntity(Game.goal)
+    end
+
+    Game.goal = Goal(cell:center())
+    self:addEntity(Game.goal)
+    ---
+    local queue = Queue(cell)
+    local distance = {}
+    local current
+
+    cell.distance = 0
+
+    while not queue:isEmpty() do
+        current = queue:get()
+
+        for __, neighbor in pairs(current:getNeighbors()) do
+            if neighbor.distance == nil then
+                queue:put(neighbor)
+                neighbor.distance = 1 + current.distance
+                neighbor.comeFrom = current
+            end
+        end
+    end
 end
 
 -- Get world's width/height values
@@ -128,6 +175,7 @@ end
 -- Draw world entities
 --
 function World:draw()
+    love.graphics.setColor(Config.color.white)
     self.map:draw(Config.map.xOffset, Config.map.yOffset)
 
     -- draw entities..

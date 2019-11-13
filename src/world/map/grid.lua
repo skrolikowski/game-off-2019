@@ -59,6 +59,20 @@ function Grid:getCellByLocation(x, y)
     return self:getCell(row, col)
 end
 
+-- Get cells withing requested bounds
+--
+function Grid:getCellsInBounds(bounds)
+    local cells = {}
+
+    for __, cell in pairs(self.cells) do
+        if cell:within(bounds) then
+            table.insert(cells, cell)
+        end
+    end
+
+    return cells
+end
+
 -- Update the grid.
 --
 function Grid:update(dt)

@@ -36,6 +36,8 @@ function Entity:inBounds()
     return Game.world:bounds():contains(self:bounds())
 end
 
+-- Get entity's bounding box
+--
 function Entity:bounds()
     local cx, cy   = self:center()
     local w, h     = self:dimensions()
