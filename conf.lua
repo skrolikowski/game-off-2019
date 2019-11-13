@@ -1,8 +1,8 @@
 require 'lua-lander'
 --
 
--- pprint = require 'libs.pprint.pprint'
--- Timer  = require 'libs.hump.timer'
+Inspect = require 'inspect'
+Timer   = require 'hump.timer'
 --
 
 -- Google
@@ -17,7 +17,7 @@ EntityManager = require 'src.entities'
 Bump = require 'vendor.bump.bump'  -- bump.lua
                                    -- Author: kikito
                                    -- Repo: https://github.com/kikito/bump.lua
-STI  = require 'vendor.sti.sti'    -- Simple-Tiled-Implementation
+sti  = require 'vendor.sti.sti'    -- Simple-Tiled-Implementation
                                    -- Author: karai17
                                    -- Repo: https://github.com/karai17/Simple-Tiled-Implementation
 --

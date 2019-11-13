@@ -91,13 +91,19 @@ function Vec2:dot(other)
     return self.x * other.x + self.y * other.y
 end
 
+-- Cross product
+--
+function Vec2:cross(other)
+    return self.x * other.y - self.y * other.x
+end
+
 -- Angle between the Vec2 and another
 --
 function Vec2:angleBetween(other)
     local dotmag2
     
     dotmag2 = self:dot(other) / (self:magnitude() * other:magnitude())
-    dotmag2 = _.clamp(dotmag2, -1, 1)
+    dotmag2 = _:clamp(dotmag2, -1, 1)
 
     return math.acos(dotmag2)
 end

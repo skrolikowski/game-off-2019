@@ -10,6 +10,8 @@ function Projectile:new(x, y, rotation, atkSpd, atkStr)
 	-- Properties
 	self.name     = 'projectile'
     self.pos      = Vec2(x, y)
+    self.width    = 25
+    self.height   = 25
     self.color    = Config.color.entities.projectile
     self.rotation = rotation
 
@@ -39,10 +41,17 @@ end
 -- Collision resoluation
 --
 function Projectile:collidedWith(other, collision)
-	-- if other.category == 'enemies' then
-	-- 	self:destroy(other)
-	-- 	other:takeDamage(self, self.atkStr)
-	-- end
+	if other.category == 'enemy' then
+		self:destroy(other)
+		other:takeDamage(self, self.atkStr)
+	end
+end
+
+-- Draw projectile
+--
+function Projectile:draw()
+    love.graphics.setColor(self.color)
+    love.graphics.rectangle('fill', self:container())
 end
 
 return Projectile

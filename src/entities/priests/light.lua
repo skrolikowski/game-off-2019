@@ -19,8 +19,8 @@ function Light:new(x, y)
 	self.color    = Config.color.entities.tower
 
 	-- Attack/health
-	self.cooldown = { max = 3, now = 3 }
-	self.atkSpd   = 10
+	self.cooldown = { max = 1, now = 0 }
+	self.atkSpd   = 100
 	self.atkStr   = 1
 	self.health   = 10
 
@@ -28,7 +28,7 @@ function Light:new(x, y)
 	self.sight     = 150
 	self.periphery = _.__pi / 6
 	self.fsm       = FSM(self, 'idle')
-	self.tracker   = Tracker(self, 'enemies', 'closest')
+	self.tracker   = Tracker(self, 'enemy', 'closest')
 end
 
 -- FSM: idle
@@ -45,15 +45,23 @@ end
 --
 function Light:track()
 	if self.tracker.target ~= nil then
-		local target      = self.tracker.target
-		local lineOfSight = Vec2(_.__cos(self.pos.x), _.__sin(self.pos.y))
-		local direction   = target.toTarget:cross(lineOfSight)
+		-- TODO: always face target
+		
+		-- local target      = self.tracker.target
+		-- local lineOfSight = Vec2(_.__cos(self.pos.x), _.__sin(self.pos.y))
+		-- local direction   = target.toTarget:cross(lineOfSight)
 
-		if direction < 0 then
-			self.rotation = self.rotation + 0.01
-		else
-			self.rotation = self.rotation - 0.01
-		end
+		-- if direction > 0 then
+		-- 	self.rotation = self.rotation + 0.02
+		-- 	if self.rotation > _.__pi * 2 then
+		-- 		self.rotation = self.rotation - _.__pi * 2
+		-- 	end
+		-- else
+		-- 	self.rotation = self.rotation - 0.02
+		-- 	if self.rotation < 0 then
+		-- 		self.rotation = self.rotation + _.__pi * 2
+		-- 	end
+		-- end
 	else
 		self.fsm:popState()
 	end
@@ -63,14 +71,12 @@ end
 --
 function Light:attack(target)
 	local cx, cy = self:center()
-	local nx     = cx + _.__cos(self.rotation) * Config.map.cell.size / 2
-	local ny     = cy + _.__sin(self.rotation) * Config.map.cell.size / 2
-	local projectile
+	local nx     = cx + _.__cos(self.rotation) * Config.map.cell.size * 1.5
+	local ny     = cy + _.__sin(self.rotation) * Config.map.cell.size * 1.5
 
-	projectile = Projectile(nx, ny, self.atkSpd, self.atkStr)
-	projectile:launch()
-
-	Game.world:addEntity(projectile)
+	Game.world:addEntity(
+		Projectile(nx, ny, self.rotation, self.atkSpd, self.atkStr)
+	)
 end
 
 -- Collision resoluation

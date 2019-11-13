@@ -11,7 +11,7 @@ Config = {
     color = {
         black  = { _:color('black')      },
         white  = { _:color('white')      },
-        bg     = { _:color('gray-100')   },
+        bg     = { _:color('black')   },
         debug  = { _:color('red-500')    },
         target = { _:color('red-800')    },
         entities = {
@@ -35,16 +35,33 @@ love.graphics.setBackgroundColor(Config.color.bg)
 function love.load()
     Game.world = World()
     Game.grid  = Grid(Config.map.rows, Config.map.cols)
-    Game.goal  = nil
+    -- Game.timer = Timer.new()
+    -- Game.goal  = nil
+
+
+    -------------------------------------
+    -- Quickstart simulation
+    -- setGoal(Game.grid:getCell(1, Config.map.cols / 2))
+    
+    -- Game.world:addEntity(Light(Game.grid:getCell(15, 13):center()))
+
+    -- Game.world:addEntity(Wall(Game.grid:getCell(13, 11):center()))
+    -- Game.world:addEntity(Wall(Game.grid:getCell(14, 11):center()))
+    -- Game.world:addEntity(Wall(Game.grid:getCell(15, 11):center()))
+
+    -- Game.timer:every(1, function()
+    --     spawnEnemy(Game.grid:getCell(Config.map.rows, Config.map.cols / 2))
+    -- end)
 end
 
 function love.update(dt)
+    -- Game.timer:update(dt)
     Game.world:update(dt)
 end
 
 function love.draw()
-    Game.grid:draw()
     Game.world:draw()
+    --Game.grid:draw()
 end
 
 -----------------------------------------------
@@ -73,7 +90,7 @@ end
 
 -----------------------------------------------
 function spawnEnemy(cell)
-    Game.world:addEntity(Pawn(cell:center()))
+    Game.world:addEntity(Skeleton(cell:center()))
 end
 
 function spawnTower(cell)

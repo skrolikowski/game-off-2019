@@ -60,7 +60,7 @@ end
 
 -- Take damage
 --
-function Entity:takeDamange(other, damage)
+function Entity:takeDamage(other, damage)
     self.health = self.health - damage
 
     if self.health <= 0 then

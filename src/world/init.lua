@@ -14,9 +14,13 @@ local World  = Modern:extend()
 --
 function World:new()
     self.world  = Bump.newWorld()
-    -- self.map    = STI('', { 'bump' })
-    self.width  = Config.width --self.map.width * self.map.tilewidth
-    self.height = Config.height --self.map.height * self.map.tileheight
+    self.map    = sti('res/A.lua')
+    self.width  = self.map.width * self.map.tilewidth
+    self.height = self.map.height * self.map.tileheight
+
+    -- SpawnTiles(self.map.layers['Environment'].objects)
+    -- SpawnEnvironment(self.map.layers['Environment'].objects)
+    -- SpawnEntities()
 end
 
 -- Get world's width/height values
@@ -124,7 +128,7 @@ end
 -- Draw world entities
 --
 function World:draw()
-    -- self.map:draw()
+    self.map:draw(Config.map.xOffset, Config.map.yOffset)
 
     -- draw entities..
     local entities, len = self:queryScreen()
