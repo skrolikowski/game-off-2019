@@ -1,11 +1,16 @@
 -- Game Entities
 --
 
+-- Spawner
+Spawner = require 'src.entities.spawner'
+
 -- Priests
 -- Light = require 'src.entities.priests.light'
 -- Trap  = require 'src.entities.priests.trap'
 -- Heavy = require 'src.entities.priests.heavy'
 
+-- Props
+Torch = require 'src.entities.props.torch'
 
 -- Monsters
 -- Skeleton = require 'src.entities.monsters.skeleton'

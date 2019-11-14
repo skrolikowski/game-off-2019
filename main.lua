@@ -8,6 +8,9 @@ Config = {
             size = 32
         }
     },
+    spritesheet = {
+        entities = love.graphics.newImage('res/entity_tilesheet.png')
+    },
     color = {
         black  = { _:color('black') },
         white  = { _:color('white') },

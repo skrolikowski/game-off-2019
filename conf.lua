@@ -16,9 +16,9 @@ Timer   = require 'hump.timer'
 -- Google
 -- ID 7-5102000028312
 
-World         = require 'src.world'
-Utils         = require 'src.utils'
-EntityManager = require 'src.entities'
+World    = require 'src.world'
+Utils    = require 'src.utils'
+Entities = require 'src.entities'
 --
 
 function love.conf(t)
