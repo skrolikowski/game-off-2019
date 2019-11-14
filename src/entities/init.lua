@@ -5,9 +5,11 @@
 Spawner = require 'src.entities.spawner'
 
 -- Priests
--- Light = require 'src.entities.priests.light'
--- Trap  = require 'src.entities.priests.trap'
--- Heavy = require 'src.entities.priests.heavy'
+Towers = {
+	require 'src.entities.priests.range',
+	require 'src.entities.priests.trap',
+	require 'src.entities.priests.heavy',
+}
 
 -- Props
 Torch = require 'src.entities.props.torch'

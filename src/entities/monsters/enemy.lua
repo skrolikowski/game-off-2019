@@ -9,7 +9,7 @@ function Enemy:new(x, y)
     self.category = 'enemy'
     self.pos      = Vec2(x, y)
     self.color    = Config.color.entities.enemy
-    self.health   = 10
+    self.health   = { now = 10, max = 10 }
 
     -- Movement
     self.vel      = Vec2()
@@ -89,6 +89,12 @@ function Enemy:draw()
         love.graphics.setColor(Config.color.debug)
         love.graphics.line(self.points)
     end
+
+    -- health bar
+    love.graphics.setColor(Config.color.health)
+    love.graphics.setLineWidth(1)
+    love.graphics.rectangle('fill', x, y - 8, (self.health.now / self.health.max) * w, 3)
+    love.graphics.rectangle('line', x, y - 8, w, 3)
 end
 
 -----------------------------------------------

@@ -63,9 +63,9 @@ end
 -- Take damage
 --
 function Entity:takeDamage(other, damage)
-    self.health = self.health - damage
+    self.health.now = self.health.now - damage
 
-    if self.health <= 0 then
+    if self.health.now <= 0 then
         self:destroy(other)
     end
 end

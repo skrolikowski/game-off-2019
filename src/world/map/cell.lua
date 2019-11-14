@@ -14,6 +14,7 @@ function Cell:new(row, col)
     self.walkable  = false
     self.leapable  = false
     self.clickable = false
+    self.isHovered = false
 end
 
 -- Get cell index
@@ -109,13 +110,15 @@ end
 -- Update the cell
 --
 function Cell:update(dt)
-    --
+    if self.clickable then
+        self.isHovered = self == Game.controls.cell
+    end
 end
 
 -- Draw the cell.
 --
 function Cell:draw()
-    if self.clickable then
+    if self.isHovered then
         love.graphics.setColor(Config.color.white)
         love.graphics.rectangle('line', self:container())
     end

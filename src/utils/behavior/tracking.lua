@@ -7,7 +7,7 @@ local Tracker = Modern:extend()
 function Tracker:new(host, prey, priority)
 	self.host     = host
 	self.prey     = prey
-	self.priority = priority
+	self.priority = priority or 'furthest'
 	self.tracking = {}
 	self.target   = nil
 end
@@ -16,55 +16,27 @@ end
 --
 function Tracker:gather()
 	self.tracking = {}  -- reset
+	
+	local cx, cy = self.host:center()
+	local adjX   = cx - self.host.sight
+	local adjY   = cy - self.host.sight
+	local adjW   = self.host.sight * 2
+	local adjH   = self.host.sight * 2
 
-	-- Get line of sight vector
-	local cx, cy      = self.host:center()
-	local rotation    = self.host.rotation
-	local lineOfSight = Vec2(_.__cos(rotation), _.__sin(rotation))
-
-	-- Query rect surrounding host
-	local adjX    = cx - self.host.sight
-	local adjY    = cy - self.host.sight
-	local adjW    = self.host.sight * 2
-	local adjH    = self.host.sight * 2
+	-- Use Bump to pull in `prey` within range..
 	local targets = Game.world:queryRect(adjX, adjY, adjW, adjH,
 		function(item)
 			return item.category == self.prey
 		end)
-	
-	-- Cycle through possible targets and mark
-	--   entities that are within our sights
+
+	-- Cycle through possible targets,
+	--   recording their properties..
 	for __, target in pairs(targets) do
-		toTarget     = target.pos - self.host.pos
-		angleBetween = toTarget:angleBetween(lineOfSight)
-		distance     = self.host.pos:distance(target.pos)
-
-		if angleBetween < self.host.periphery and
-		   distance > 0 and
-		   distance < self.host.sight
-		then
-			table.insert(self.tracking, {
-				entity       = target,
-				distance     = distance,
-				toTarget     = toTarget,
-				angleBetween = angleBetween
-			})
-		end
-	end
-end
-
--- Remove prey not within immediate sight
---
-function Tracker:verify()
-	local cx, cy = self.host:center()
-
-	for i = #self.tracking, 1, -1 do
-		local entity = self.tracking[i].entity
-		local items  = Game.world:querySegment(cx, cy, entity:center())
-		
-		if items[2] ~= entity then
-			table.remove(self.tracking, i)
-		end
+		table.insert(self.tracking, {
+			entity   = target,
+			distance = self.host.pos:distance(target.pos),
+			toTarget = target.pos - self.host.pos,
+		})
 	end
 end
 
@@ -74,7 +46,16 @@ end
 function Tracker:assess()
 	local pickTarget, pickValue
 
-	if self.priority == 'closest' then
+	if self.priority == 'furthest' then
+		for __, track in pairs(self.tracking) do
+			local lowest = track.entity:cell().distance
+
+			if pickValue == nil or lowest < pickValue then
+				pickTarget = track
+				pickValue  = lowest
+			end
+		end
+	elseif self.priority == 'closest' then
 		for __, track in pairs(self.tracking) do
 			if pickValue == nil or track.distance < pickValue then
 				pickTarget = track
@@ -90,7 +71,6 @@ end
 --
 function Tracker:update(dt)
 	self:gather()
-	self:verify()
 	self:assess()
 end
 
@@ -98,24 +78,16 @@ end
 --
 function Tracker:draw()
 	-- For debugging purposes..
-	local cx, cy    = self.host:center()
-	local sight     = self.host.sight
-	local periphery = self.host.periphery
-	local heading   = self.host.rotation
+	local cx, cy = self.host:center()
+	local sight  = self.host.sight
 
-	love.graphics.setColor(0.99, 0.98, 0.75, 0.5)
-	love.graphics.arc('fill', cx, cy, sight, heading - periphery, heading + periphery)
-
-	love.graphics.setColor(0.96, 0.88, 0.37, 1)
-	love.graphics.arc('line', cx, cy, sight, heading - periphery, heading + periphery)
+	love.graphics.setColor(Config.color.sight)
+	love.graphics.circle('fill', cx, cy, self.host.sight)
 
 	if self.target then
-		local tx, ty = self.target.entity:center()
-
 		love.graphics.setColor(Config.color.target)
 		love.graphics.setLineWidth(1)
-		love.graphics.circle('line', tx, ty, 6)
-		love.graphics.circle('fill', tx, ty, 3)
+		love.graphics.line(cx, cy, self.target.entity:center())
 	end
 end
 

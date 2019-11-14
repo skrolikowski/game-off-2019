@@ -45,6 +45,13 @@ function AABB:contains(other)
            self.bottom >= other.bottom
 end
 
+function AABB:containsVec2(other)
+    return self.left   <= other.x and
+           self.right  >= other.x and
+           self.top    <= other.y and
+           self.bottom >= other.y
+end
+
 function AABB:intersects(other)
     return self.left   <= other.right  and
            self.right  >= other.left   and

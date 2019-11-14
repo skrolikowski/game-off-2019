@@ -12,7 +12,7 @@ function Goal:new(x, y)
     self.height = Config.map.cell.size
     self.mass   = 10
     self.health = 10
-    self.color  = Config.color.entities.goal
+    self.color  = Config.color.white
 end
 
 return Goal

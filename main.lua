@@ -13,17 +13,12 @@ Config = {
     },
     color = {
         black  = { _:color('black') },
+        health = { _:color('red-700') },
         white  = { _:color('white') },
         bg     = { _:color('black') },
         debug  = { _:color('red-500') },
-        target = { _:color('red-800') },
-        entities = {
-            enemy      = { _:color('orange-400') },
-            environ    = { _:color('green-400') },
-            goal       = { _:color('yellow-500') },
-            tower      = { _:color('gray-800') },
-            projectile = { _:color('yellow-500') }
-        }
+        target = { _:color('orange-800') },
+        sight  = { 0.99, 0.98, 0.75, 0.5 }
     }
 }
 Config.map.rows = _.__floor(Config.height / Config.map.cell.size)
@@ -33,9 +28,15 @@ Game = {}
 --
 
 function love.load()
-    Game.grid  = Grid(Config.map.rows, Config.map.cols)
-    Game.world = World()
-    Game.goal  = nil
+    Game.grid      = Grid(Config.map.rows, Config.map.cols)
+    Game.world     = World()
+    Game.selection = nil
+    Game.goal      = nil
+    Game.controls  = {
+        cell  = nil,
+        mouse = Vec2(love.mouse.getPosition()),
+        tower = 1
+    }
     -- Game.timer = Timer.new()
 
 
@@ -57,6 +58,7 @@ end
 function love.update(dt)
     -- Game.timer:update(dt)
     Game.world:update(dt)
+    Game.grid:update(dt)
 end
 
 function love.draw()
@@ -65,35 +67,77 @@ function love.draw()
 end
 
 -----------------------------------------------
+
+-- Controls -  Key Press
+--
 function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
-    elseif key == 'e' then
-        -- spawnEnemy(Game.grid:getCellByLocation(love.mouse.getPosition()))
-    elseif key == 't' then
-        -- spawnTower(Game.grid:getCellByLocation(love.mouse.getPosition()))
+    elseif key == 'up' then
+        nextTower()
+    elseif key == 'down' then
+        prevTower()
     end
 end
 
--- function love.mousepressed(x, y, button)
---     local cell   = Game.grid:getCellByLocation(x, y)
---     local cx, cy = cell:center()
+-- Controls - Mouse Move
+--
+function love.mousemoved(x, y)
+    Game.controls.cell  = Game.grid:getCellByLocation(x, y)
+    Game.controls.mouse = Vec2(x, y)
+end
 
---     if button == 1 then
---         Game.world:addEntity(Wall(cx, cy))
---         cell.active = false
---     elseif button == 2 then
---         setGoal(Game.grid:getCellByLocation(love.mouse.getPosition()))
---         resetEnemyPaths()
---     end
--- end
+-- Controls - Mouse Scroll
+--
+function love.wheelmoved(x, y)
+    if y > 0 then
+        nextTower()
+    elseif y < 0 then
+        prevTower()
+    end
+end
+
+-- Controls - Mouse Pressed
+--
+function love.mousepressed(x, y, button)
+    Game.selection = nil  -- reset
+
+    if Game.controls.cell and Game.controls.cell.clickable then
+        local x, y, w, h    = Game.controls.cell:container()
+        local entities, len = Game.world:queryRect(x, y, w, h,
+            function(item)
+                return item.category == 'priests'
+            end)
+
+        if len == 0 then
+            Game.world:addEntity(
+                Towers[Game.controls.tower](
+                    Game.controls.cell:center()
+                )
+            )
+        else
+            Game.selection = entities[1]
+        end
+    end
+end
 
 -----------------------------------------------
--- function spawnEnemy(cell)
---     Game.world:addEntity(Skeleton(cell:center()))
--- end
 
--- function spawnTower(cell)
---     Game.world:addEntity(Light(cell:center()))
--- end
+-- Controls -  Key Press
+--
 
+function nextTower()
+    Game.controls.tower = Game.controls.tower + 1
+
+    if Game.controls.tower > #Towers then
+        Game.controls.tower = 1
+    end
+end
+
+function prevTower()
+    Game.controls.tower = Game.controls.tower - 1
+
+    if Game.controls.tower < 1 then
+        Game.controls.tower = #Towers
+    end
+end

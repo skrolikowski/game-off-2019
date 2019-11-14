@@ -6,6 +6,7 @@ function Torch:new(x, y, idx)
 	self.category = 'props'
 	self.pos      = Vec2(x, y)
 	self.color    = Config.color.white
+	self.react    = 'cross'
 
 	-- Sprite
 	self.sprite = Animator()
