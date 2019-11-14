@@ -81,7 +81,7 @@ function Tracker:draw()
 	local cx, cy = self.host:center()
 	local sight  = self.host.sight
 
-	love.graphics.setColor(Config.color.sight)
+	love.graphics.setColor(self.host.sightColor[1], self.host.sightColor[2], self.host.sightColor[3], 0.25)
 	love.graphics.circle('fill', cx, cy, self.host.sight)
 
 	if self.target then

@@ -13,9 +13,19 @@ function Trap:new(x, y)
 	-- @overrides
 	self.name  = 'trap-priest'
 	self.sight = 175
+	self.sightColor = Config.color.sight3
 
 	-- properties
 	self.cooldown = { now = 0, max = 5 }
+
+	-- sprite
+	self.sprite = Animator()
+	self.sprite:addAnimation('default', {
+		image  = Config.spritesheet.towers,
+		width  = Config.map.cell.size / 2,
+		height = Config.map.cell.size / 2,
+		frames = { { 3, 4, 3, 4 } }
+	})
 end
 
 return Trap

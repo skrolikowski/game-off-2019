@@ -9,7 +9,8 @@ Config = {
         }
     },
     spritesheet = {
-        entities = love.graphics.newImage('res/entity_tilesheet.png')
+        entities = love.graphics.newImage('res/entities1.png'),
+        towers   = love.graphics.newImage('res/entities2.png'),
     },
     color = {
         black  = { _:color('black') },
@@ -18,7 +19,9 @@ Config = {
         bg     = { _:color('black') },
         debug  = { _:color('red-500') },
         target = { _:color('orange-800') },
-        sight  = { 0.99, 0.98, 0.75, 0.5 }
+        sight1 = { _:color('yellow-200') },
+        sight2 = { _:color('blue-200') },
+        sight3 = { _:color('green-200') }
     }
 }
 Config.map.rows = _.__floor(Config.height / Config.map.cell.size)
@@ -57,13 +60,13 @@ end
 
 function love.update(dt)
     -- Game.timer:update(dt)
-    Game.world:update(dt)
     Game.grid:update(dt)
+    Game.world:update(dt)
 end
 
 function love.draw()
-    Game.world:draw()
     Game.grid:draw()
+    Game.world:draw()
 end
 
 -----------------------------------------------

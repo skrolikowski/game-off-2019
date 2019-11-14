@@ -13,30 +13,12 @@ function Priest:new(x, y)
 	self.width  = Config.map.cell.size
 	self.height = Config.map.cell.size
 	self.color  = Config.color.white
+	self.sx     = 2
+	self.sy     = 2
 
 	-- behaviors
-	self.fsm     = FSM(self, 'hunt')
 	self.tracker = Tracker(self, 'enemy')
-end
-
--- FSM: hunt for next target
---
-function Priest:hunt()
-	if self.tracker.target == nil then
-		--self.rotation = self.rotation + 0.01
-	else
-		self.fsm:pushState('track')
-	end
-end
-
--- FSM: track target
---
-function Priest:track()
-	if self.tracker.target ~= nil then
-		
-	else
-		self.fsm:popState()
-	end
+	self.react   = 'cross'
 end
 
 -- Launch attack on target
@@ -53,10 +35,14 @@ function Priest:attack(target)
 	Game.world:addEntity(projectile)
 end
 
+function Priest:dimensions()
+	return self.sprite:dimensions()
+end
+
 -- Update priest behaviors
 --
 function Priest:update(dt)
-	self.fsm:update(dt)
+	self.sprite:update(dt)
 	self.tracker:update(dt)
 
 	-- cooldown/attack
@@ -73,14 +59,15 @@ end
 -- Draw tower
 --
 function Priest:draw()
-	local x, y, w, h = self:container()
+	local cx, cy = self:center()
+	local w, h   = self:dimensions()
 
 	love.graphics.setColor(self.color)
-	love.graphics.rectangle('fill', x, y, w, h)
+
+	self.sprite:draw(cx, cy, 0, self.sx, self.sy, w / 2, h - 5)
 
 	-- debug
-	self.fsm:draw()
-	self.tracker:draw()
+	--self.tracker:draw()
 end
 
 return Priest

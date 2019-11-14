@@ -11,8 +11,11 @@ Towers = {
 	require 'src.entities.priests.heavy',
 }
 
--- Props
-Torch = require 'src.entities.props.torch'
+
+-- Misc
+Goal  = require 'src.entities.misc.goal'
+Torch = require 'src.entities.misc.torch'
+
 
 -- Monsters
 -- Skeleton = require 'src.entities.monsters.skeleton'
@@ -22,8 +25,6 @@ Torch = require 'src.entities.props.torch'
 -- Projectiles
 -- Projectile = require 'src.entities.projectiles.projectile'
 
--- Environment
--- Wall = require 'src.entities.environment.wall'
-Goal = require 'src.entities.environment.goal'
+
 
 return {}
