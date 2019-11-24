@@ -1,11 +1,14 @@
+-- Goal Entity
+--
+
 local Entity = require 'src.entities.entity'
 local Goal   = Entity:extend()
 
-function Goal:new(x, y, idx)
+function Goal:new(x, y)
 	self.name     = 'goal'
 	self.category = 'misc'
 	self.pos      = Vec2(x, y)
-	self.react    = 'cross'
+	self.health   = { now = 10, max = 10 }
 	self.color    = Config.color.white
 	self.sx       = 2
 	self.sy       = 2
@@ -13,32 +16,23 @@ function Goal:new(x, y, idx)
 	-- sprite
 	self.sprite = Animator()
 	self.sprite:addAnimation('default', {
-		image  = Config.spritesheet.entities,
+		image  = Config.image.spritesheet.entities,
 		width  = Config.map.cell.size / 2,
 		height = Config.map.cell.size / 2,
 		frames = { { 8, 5, 8, 8 } }
 	})
 end
 
--- Get entity's dimensions
---
-function Goal:dimensions()
-	return self.sprite:dimensions()
-end
-
--- Animate entity
---
-function Goal:update(dt)
-	self.sprite:update(dt)
-end
-
 function Goal:draw()
-	local cx, cy = self:center()
-	local w, h   = self:dimensions()
+	Entity.draw(self)
 
-	love.graphics.setColor(self.color)
+	local x, y, w, h = self:container()
 
-	self.sprite:draw(cx, cy, 0, self.sx, self.sy, w/2, h/2)
+	-- health bar
+    love.graphics.setColor(Config.color.health)
+    love.graphics.setLineWidth(1)
+    love.graphics.rectangle('fill', x-10, y - 16, (self.health.now / self.health.max) * (w+20), 3)
+    love.graphics.rectangle('line', x-10, y - 16, w+20, 3)
 end
 
 return Goal

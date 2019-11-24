@@ -10,12 +10,10 @@ function Steering:follow()
     local steer = Vec2()
 
     if last then
-        steer = self:arrive(target)
+        self:arrive(target)
     else
-        steer = self:seek(target)
+        self:seek(target)
     end
-
-    return self.host:applyForce(steer)
 end
 
 function Steering:seek(target)
@@ -28,7 +26,7 @@ function Steering:seek(target)
     steer = desired - self.host.vel
     steer:limit(self.host.maxForce)
 
-    return steer
+    self.host:applyForce(steer)
 end
 
 function Steering:arrive(target)
@@ -49,7 +47,7 @@ function Steering:arrive(target)
         steer = desired - self.host.vel
         steer:limit(self.host.maxForce)
 
-        return steer
+        self.host:applyForce(steer)
     end
 end
 

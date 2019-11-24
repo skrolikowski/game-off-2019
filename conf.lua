@@ -1,24 +1,12 @@
 require 'lua-lander'
 --
 
--- Vendor libraries
-Bump = require 'vendor.bump.bump'  -- bump.lua
-                                   -- Author: kikito
-                                   -- Repo: https://github.com/kikito/bump.lua
--- STI  = require 'vendor.sti.sti'    -- Simple-Tiled-Implementation
-                                   -- Author: karai17
-                                   -- Repo: https://github.com/karai17/Simple-Tiled-Implementation
-
-Inspect = require 'inspect'
-Timer   = require 'hump.timer'
---
-
--- Google
--- ID 7-5102000028312
-
-World    = require 'src.world'
-Utils    = require 'src.utils'
-Entities = require 'src.entities'
+-- Globals
+Spawners   = require 'src.spawners'
+World      = require 'src.world'
+Utils      = require 'src.utils'
+Entities   = require 'src.entities'
+Gamestates = require 'src.gamestates'
 --
 
 function love.conf(t)
@@ -32,8 +20,8 @@ function love.conf(t)
     -- t.window.icon       = 'res/ui/crossair_black.png'
     t.window.x          = 25
     t.window.y          = 50
-    t.window.width      = 640
-    t.window.height     = 640
+    t.window.width      = 1024
+    t.window.height     = 800
     t.window.fullscreen = false
     t.window.highdpi    = true
     t.window.vsync      = true

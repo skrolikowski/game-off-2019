@@ -24,7 +24,7 @@ function Tracker:gather()
 	local adjH   = self.host.sight * 2
 
 	-- Use Bump to pull in `prey` within range..
-	local targets = Game.world:queryRect(adjX, adjY, adjW, adjH,
+	local targets = _World:queryRect(adjX, adjY, adjW, adjH,
 		function(item)
 			return item.category == self.prey
 		end)
@@ -48,11 +48,11 @@ function Tracker:assess()
 
 	if self.priority == 'furthest' then
 		for __, track in pairs(self.tracking) do
-			local lowest = track.entity:cell().distance
+			local value = track.entity:cell().distance
 
-			if pickValue == nil or lowest < pickValue then
+			if pickValue == nil or (value and value < pickValue) then
 				pickTarget = track
-				pickValue  = lowest
+				pickValue  = value
 			end
 		end
 	elseif self.priority == 'closest' then

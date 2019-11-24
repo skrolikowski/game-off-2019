@@ -12,6 +12,13 @@ function Vec2:new(x, y)
     self.y = y or 0
 end
 
+function Vec2:polar(angle, mag)
+    return Vec2(
+        _.__cos(angle) * (mag or 1),
+        _.__sin(angle) * (mag or 1)
+    )
+end
+
 -- Unpack
 --
 function Vec2:unpack()
@@ -112,6 +119,12 @@ end
 --
 function Vec2:heading()
     return math.atan2(self.y, self.x)
+end
+
+-- Heading to other Vec2
+--
+function Vec2:headingTo(other)
+    return math.atan2(other.y - self.y, other.x - self.x)
 end
 
 -- Set length

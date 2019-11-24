@@ -8,7 +8,7 @@ local Trap   = Priest:extend()
 -- Create new Priest
 --
 function Trap:new(x, y)
-	self.__super.new(self, x, y)
+	Priest.new(self, x, y)
 
 	-- @overrides
 	self.name  = 'trap-priest'
@@ -21,11 +21,16 @@ function Trap:new(x, y)
 	-- sprite
 	self.sprite = Animator()
 	self.sprite:addAnimation('default', {
-		image  = Config.spritesheet.towers,
+		image  = Config.image.spritesheet.towers,
 		width  = Config.map.cell.size / 2,
 		height = Config.map.cell.size / 2,
 		frames = { { 3, 4, 3, 4 } }
 	})
+end
+
+-- Lay Trap - Brimstone!
+function Trap:attack(target)
+	_World:addEntity(Brimstone(target, self))
 end
 
 return Trap

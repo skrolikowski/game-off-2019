@@ -1,13 +1,9 @@
--- Game entity
+-- Game Entity
 -- Shane Krolikowski
 --
 
 local Modern = require 'modern'
 local Entity = Modern:extend()
-
-function Entity:new()
-    --
-end
 
 -- Entity top/left position
 --
@@ -29,11 +25,15 @@ end
 -- Entity's dimensions
 --
 function Entity:dimensions()
-    return self.width, self.height
+    if self.sprite then
+        return self.sprite:dimensions()
+    else
+        return self.width, self.height
+    end
 end
 
 function Entity:inBounds()
-    return Game.world:bounds():contains(self:bounds())
+    return _World:bounds():contains(self:bounds())
 end
 
 -- Get entity's bounding box
@@ -47,6 +47,11 @@ function Entity:bounds()
     h = h * (self.by or 1)
 
     return AABB:compute(cx, cy, w, h, rotation)
+end
+
+-- Get entity's current cell location
+function Entity:cell()
+    return _Grid:getCellByLocation(self:center())
 end
 
 -- Entity's container
@@ -76,7 +81,7 @@ function Entity:destroy(other)
     self.remove = true
 end
 
--- Collision resoluation
+-- Collision resolution
 --
 function Entity:collidedWith(other, collision)
     --
@@ -85,14 +90,23 @@ end
 -- Update entity
 --
 function Entity:update(dt)
-    --
+    if self.sprite then
+        self.sprite:update(dt)
+    end
 end
 
 -- Draw entity
 --
 function Entity:draw()
-    love.graphics.setColor(self.color)
-    love.graphics.rectangle('line', self:container())
+    if self.sprite then
+        local cx, cy = self:center()
+        local w, h   = self:dimensions()
+        local ox, oy = self.ox or 0, self.oy or 0
+
+        love.graphics.setColor(self.color)
+
+        self.sprite:draw(cx, cy, 0, self.sx, self.sy, w/2 + ox, h/2 + oy)
+    end
 end
 
 -----------------------------------------------

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="32" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="16">
+ <tileset firstgid="1" source="ui_tiles.tsx"/>
+ <layer id="1" name="UI Back" width="32" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztzTkKgEAUBNFxARfcd/H+97RCo2ECPyPSDY8OyzntuRUntkj9HReOSP2vrsEQqDXoz1gCjeqrr776L67DFKg36Gta7CWoUXg+M+ynKFF5Pjfs/3E3ReoK9w==
+  </data>
+ </layer>
+ <layer id="3" name="UI Front" width="32" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztyKkNACAQAMFrhC/03yMINDmBQMwkazYCAPhZ2Y1TTfzX2m6eeuID3Cwe9wIF
+  </data>
+ </layer>
+ <objectgroup id="2" name="Buttons" visible="0">
+  <object id="2" name="[S]tart" x="352" y="480" width="128" height="64"/>
+  <object id="3" name="[C]redits" x="544" y="480" width="128" height="64"/>
+  <object id="4" name="[Q]uit" x="128" y="64" width="96" height="64"/>
+ </objectgroup>
+ <objectgroup id="4" name="Text" visible="0">
+  <object id="6" name="Made with Love2D" x="414.667" y="684" width="192" height="33.3333">
+   <properties>
+    <property name="Color" value="white"/>
+    <property name="Font" value="sm"/>
+   </properties>
+  </object>
+  <object id="9" name="by Shane Krolikowski" x="400" y="385.333" width="224" height="32">
+   <properties>
+    <property name="Color" value="gray"/>
+    <property name="Font" value="xs"/>
+   </properties>
+  </object>
+  <object id="10" name="[S]tart" x="369.333" y="496" width="96" height="32">
+   <properties>
+    <property name="Color" value="white"/>
+    <property name="Font" value="md"/>
+   </properties>
+  </object>
+  <object id="11" name="[C]redits" x="560" y="496" width="96" height="32">
+   <properties>
+    <property name="Color" value="white"/>
+    <property name="Font" value="md"/>
+   </properties>
+  </object>
+  <object id="12" name="[Q]uit" x="142.667" y="80" width="64" height="32">
+   <properties>
+    <property name="Color" value="black"/>
+    <property name="Font" value="sm"/>
+   </properties>
+  </object>
+  <object id="13" name="Priest vs Monsters" x="368" y="237.333" width="286.667" height="64">
+   <properties>
+    <property name="Color" value="black"/>
+    <property name="Font" value="xl"/>
+   </properties>
+  </object>
+  <object id="14" name="A Tower Defense Game" x="384" y="352" width="256" height="32">
+   <properties>
+    <property name="Color" value="gray"/>
+    <property name="Font" value="md"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

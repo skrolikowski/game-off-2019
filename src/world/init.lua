@@ -13,32 +13,28 @@ local World  = Modern:extend()
 -- Create new world
 --
 function World:new()
-    local STI  = require 'vendor.sti.sti'
-
-    self.world  = Bump.newWorld()
-    self.map    = STI("res/map/A.lua")
-    self.width  = self.map.width * self.map.tilewidth
-    self.height = self.map.height * self.map.tileheight
-
-    -- Spawn in entities and such..
-    Spawner(self, self.map.layers)
+    self.world = Bump.newWorld()
 end
 
--- Get world's width/height values
+-- Destroy all entities in world
 --
-function World:dimensions()
-    return self.width, self.height
+function World:destroy()
+    local entities, len = self.world:getItems()
+
+    for i = #entities, 1, -1 do
+        self:removeEntity(entities[i])
+    end
 end
 
 -- Add an entity to the world
 --
 function World:addEntity(entity)
-    -- TODO: register events?
     self.world:add(entity, entity:container())
 end
 
+-- Remove an entity from the world
+--
 function World:removeEntity(entity)
-    -- TODO: uneregister events?
     self.world:remove(entity)
 end
 
@@ -70,7 +66,7 @@ function World:moveEntity(entity, nextPos)
     if self.world:hasItem(entity) then
         local width, height   = entity:dimensions()
         local wX, wY          = self:convertToWorldPosition(nextPos.x, nextPos.y, width, height)
-        local filter          = entity.react or function() return "slide" end
+        local filter          = entity.react or function() return "cross" end
         local x, y, cols, len = self.world:move(entity, wX, wY, filter)
         local newX, newY      = self:convertToEntityPosition(x, y, width, height)
 
@@ -95,6 +91,12 @@ function World:convertToEntityPosition(x, y, w, h)
            y + h / 2
 end
 
+-- Query point for entities
+--
+function World:queryPoint(x, y, filter)
+    return self.world:queryPoint(x, y, filter)
+end
+
 -- Query segment for entities
 --
 function World:querySegment(x1, y1, x2, y2, filter)
@@ -113,6 +115,12 @@ function World:queryScreen()
     return self.world:queryRect(0, 0, self:dimensions())
 end
 
+-- Get world's dimensions
+--
+function World:dimensions()
+    return Config.width, Config.height
+end
+
 -- Get world's axis-aligned bounding box
 --
 function World:bounds()
@@ -129,9 +137,6 @@ end
 -- Draw world entities
 --
 function World:draw()
-    love.graphics.setColor(Config.color.white)
-    self.map:draw(Config.map.xOffset, Config.map.yOffset)
-
     -- draw entities..
     local entities, len = self:queryScreen()
 

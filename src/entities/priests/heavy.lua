@@ -8,11 +8,11 @@ local Heavy  = Priest:extend()
 -- Create new Priest
 --
 function Heavy:new(x, y)
-	self.__super.new(self, x, y)
+	Priest.new(self, x, y)
 
 	-- @overrides
 	self.name  = 'heavy-priest'
-	self.sight = 150
+	self.sight = 100
 	self.sightColor = Config.color.sight2
 
 	-- properties
@@ -21,11 +21,17 @@ function Heavy:new(x, y)
 	-- sprite
 	self.sprite = Animator()
 	self.sprite:addAnimation('default', {
-		image  = Config.spritesheet.towers,
+		image  = Config.image.spritesheet.towers,
 		width  = Config.map.cell.size / 2,
 		height = Config.map.cell.size / 2,
 		frames = { { 3, 1, 3, 1 } }
 	})
+end
+
+-- Raise Blaze!
+--
+function Heavy:attack(target)
+	_World:addEntity(Blaze(target, self))
 end
 
 return Heavy

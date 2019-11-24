@@ -8,13 +8,19 @@ local Cell   = Modern:extend()
 -- Create new cell
 --
 function Cell:new(row, col)
-    self.row       = row
-    self.col       = col
-    self.bounds    = self:bounds()
-    self.walkable  = false
-    self.leapable  = false
-    self.clickable = false
-    self.isHovered = false
+    self.row    = row
+    self.col    = col
+    self.bounds = self:bounds()
+
+    self:reset()
+end
+
+-- Reset cell's configurations
+--
+function Cell:reset()
+    self.distance = nil
+    self.walkable = false
+    self.leapable = false
 end
 
 -- Get cell index
@@ -94,7 +100,7 @@ end
 -- Get cell in relation to this cell
 --
 function Cell:relative(dr, dc)
-    return Game.grid:getCell(
+    return _Grid:getCell(
         self.row + (dr or 0),
         self.col + (dc or 0)
     )
@@ -110,18 +116,14 @@ end
 -- Update the cell
 --
 function Cell:update(dt)
-    if self.clickable then
-        self.isHovered = self == Game.controls.cell
-    end
+    --
 end
 
 -- Draw the cell.
 --
 function Cell:draw()
-    if self.isHovered then
-        love.graphics.setColor(Config.color.white)
-        love.graphics.rectangle('line', self:container())
-    end
+    -- love.graphics.setColor(Config.color.white)
+    -- love.graphics.rectangle('line', self:container())
 
     -------
 

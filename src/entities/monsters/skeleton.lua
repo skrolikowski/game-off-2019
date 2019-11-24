@@ -2,15 +2,38 @@
 -- Shane Krolikowski
 --
 
-local Enemy    = require 'src.entities.monsters.enemy'
-local Skeleton = Enemy:extend()
+local Monster    = require 'src.entities.monsters.monster'
+local Skeleton = Monster:extend()
 
 function Skeleton:new(x, y)
-    self.__super.new(self, x, y)
+    Monster.new(self, x, y)
 
-    self.name   = 'pawn'
-    self.width  = 8
-    self.height = 15
+    self.name     = 'skeleton'
+    self.sx       = 1.25
+	self.sy       = 1.25
+	self.mass     = 5
+	self.value    = 0.05
+	self.maxSpeed = 30
+    self.maxForce = 15
+    self.atkStr   = 2
+    self.health   = { now = 10, max = 10 }
+
+	self.sprite = Animator()
+	if (_.__random(2) == 1) then
+		self.sprite:addAnimation('default', {
+			image  = Config.image.spritesheet.entities,
+			width  = Config.map.cell.size / 2,
+			height = Config.map.cell.size / 2,
+			frames = { { 4, 1, 4, 4 } }
+		})
+	else
+		self.sprite:addAnimation('default', {
+			image  = Config.image.spritesheet.entities,
+			width  = Config.map.cell.size / 2,
+			height = Config.map.cell.size / 2,
+			frames = { { 4, 5, 4, 8 } }
+		})
+	end
 end
 
 return Skeleton

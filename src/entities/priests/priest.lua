@@ -15,34 +15,17 @@ function Priest:new(x, y)
 	self.color  = Config.color.white
 	self.sx     = 2
 	self.sy     = 2
+	self.oy     = 5
 
 	-- behaviors
-	self.tracker = Tracker(self, 'enemy')
-	self.react   = 'cross'
-end
-
--- Launch attack on target
---
-function Priest:attack(target)
-	local cx, cy = self:center()
-	local nx     = cx + _.__cos(self.rotation) * self.width  * 1.25
-	local ny     = cy + _.__sin(self.rotation) * self.height * 1.25
-	local projectile
-
-	projectile = Projectile(nx, ny)
-	projectile.rotation = self.rotation
-
-	Game.world:addEntity(projectile)
-end
-
-function Priest:dimensions()
-	return self.sprite:dimensions()
+	self.tracker = Tracker(self, 'monster')
 end
 
 -- Update priest behaviors
 --
 function Priest:update(dt)
-	self.sprite:update(dt)
+	Entity.update(self, dt)
+	
 	self.tracker:update(dt)
 
 	-- cooldown/attack
@@ -53,21 +36,29 @@ function Priest:update(dt)
 		else
 			self.cooldown.now = self.cooldown.now - dt
 		end
+	else
+		self.cooldown.now = 0
 	end
 end
 
--- Draw tower
+-- Draw priest
 --
 function Priest:draw()
-	local cx, cy = self:center()
-	local w, h   = self:dimensions()
+	Entity.draw(self)
 
-	love.graphics.setColor(self.color)
+	local x, y, w, h = self:container()
+	local padding    = Config.map.cell.size / 2
 
-	self.sprite:draw(cx, cy, 0, self.sx, self.sy, w / 2, h - 5)
+	-- cooldown meter
+	if self.tracker.target then
+		love.graphics.setColor(Config.color.cooldown)
+		love.graphics.setLineWidth(1)
+		love.graphics.rectangle('fill', x - padding, y - padding * 2, (self.cooldown.now / self.cooldown.max) * (w + padding * 2), 5)
+		love.graphics.rectangle('line', x - padding, y - padding * 2, w + padding * 2, 5)
+	end
 
 	-- debug
-	--self.tracker:draw()
+	-- self.tracker:draw()
 end
 
 return Priest

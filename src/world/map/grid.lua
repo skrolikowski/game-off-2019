@@ -19,6 +19,27 @@ function Grid:new(rows, cols)
     end
 end
 
+-- Reset grid
+--
+function Grid:reset()
+    for __, cell in pairs(self.cells) do
+        cell:reset()
+    end
+end
+
+-- Mark grid traits
+--
+function Grid:markTileTrait(trait, layer)
+    for __, obj in pairs(layer.objects) do
+        local objBounds = AABB(obj.x, obj.y, obj.x + obj.width, obj.y + obj.height)
+        local cellsWithinBounds = self:getCellsInBounds(objBounds)
+
+        for __, cell in pairs(cellsWithinBounds) do
+            cell[trait] = true
+        end
+    end
+end
+
 -- Check if cell is in bounds
 --
 function Grid:inBounds(row, col)
