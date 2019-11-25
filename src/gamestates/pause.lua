@@ -101,21 +101,22 @@ function Pause:draw()
 	self.map:draw(Config.map.xOffset, Config.map.yOffset)
 
 	-- Draw banner
-    Config.spritesheet.ui:draw('bannerScroll', 390, 132)
+    Config.spritesheet.ui:draw('bannerScroll', 390, 164)
     
     -- Draw banner text
     love.graphics.setFont(Config.ui.font.sm)
-    love.graphics.printf('Pause / Instructions', 393, 150, 260, 'center')
+    love.graphics.printf('Pause / Instructions', 393, 180, 260, 'center')
 
 	-- Draw textareas
 	for __, textArea in pairs(self.textAreas) do
 		local x, y    = textArea.x, textArea.y
 		local width   = textArea.width
+		local xOffset = textArea.xOffset
 		local yOffset = textArea.yOffset
 
 		love.graphics.setFont(Config.ui.font[textArea.font])
 		love.graphics.setColor(Config.color[textArea.color])
-		love.graphics.printf(textArea.text, x, y + yOffset, width, textArea.align)
+		love.graphics.printf(textArea.text, x + xOffset, y + yOffset, width - xOffset, textArea.align)
 	end
 end
 

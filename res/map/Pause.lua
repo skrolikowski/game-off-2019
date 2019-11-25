@@ -1,15 +1,15 @@
 return {
   version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.2.5",
+  tiledversion = "1.3.1",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 32,
   height = 25,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 6,
-  nextobjectid = 41,
+  nextlayerid = 8,
+  nextobjectid = 53,
   properties = {},
   tilesets = {
     {
@@ -89,6 +89,32 @@ return {
       terrains = {},
       tilecount = 16,
       tiles = {}
+    },
+    {
+      name = "warTileset_32x32",
+      firstgid = 273,
+      filename = "warTileset_32x32.tsx",
+      tilewidth = 32,
+      tileheight = 32,
+      spacing = 0,
+      margin = 0,
+      columns = 8,
+      image = "tiles/warTileset_32x32.png",
+      imagewidth = 256,
+      imageheight = 256,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 32,
+        height = 32
+      },
+      properties = {},
+      terrains = {},
+      tilecount = 64,
+      tiles = {}
     }
   },
   layers = {
@@ -107,7 +133,7 @@ return {
       properties = {},
       encoding = "base64",
       compression = "zlib",
-      data = "eJztzbsNACAMxNAMwDew/6xkAZpTKJBsyfUzI6JbJR7iNcFf8Raf+Pj4+Pj4n/otdvGe4NPbDjN2E1s="
+      data = "eAFjYBgFtAwBfaDhxmjYgJYWopltBuSromETNDW05BoCDTfFgmlpJzXN5gEaJkAm5qWCQ4SBZoiQiQVH7ac4BEbDfzT9jeY/8tLAaPlDcfHDMNLLHz5gEAqRifkpD/5RE2gcAgAH9ha+"
     },
     {
       type = "tilelayer",
@@ -124,7 +150,24 @@ return {
       properties = {},
       encoding = "base64",
       compression = "zlib",
-      data = "eJxjYBgFo2AUjAL8YO9AOwAPYGSkvR3etLcCL/AhQS0zDcLDl/pGkgRc8Mix0iH+HWlvBdUADzA8+KgcJseoaxxVAScd4v8E7a3AC06SoJaLDuFBbyALxIpQLEeGPKVAHoiVoViBDPlRgB0AAINWBr8="
+      data = "eAFjYBgFoyEwGgKDOQQKcDgOJD4PhxwucRzK8QrLMuKVZmAkII9fN2FZFRqbT9gFpKtgHoJuxuVLDgJ+YSUgj8vcoSLOA/QfJwl+BKnnI0H9YA+HxzgcCBMnJWxwGDXshLmGUfwPhsiRBTpCEYrlsDiIkDwWLSQJyQNVK0OxAhadhOSxaBkVAoYAADBzBoc="
+    },
+    {
+      type = "tilelayer",
+      id = 7,
+      name = "UI Top",
+      x = 0,
+      y = 0,
+      width = 32,
+      height = 25,
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      encoding = "base64",
+      compression = "zlib",
+      data = "eAFjYBgFwz0EXJE86IbEHmWOhsBQCAF+xqHgylE3jobAaAiMhsBoCIyGwGgIEBsCAEoFAJw="
     },
     {
       type = "objectgroup",
@@ -162,6 +205,36 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 51,
+          name = "Volume Up",
+          type = "",
+          shape = "rectangle",
+          x = 896,
+          y = 96,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Special"] = "volumeup"
+          }
+        },
+        {
+          id = 52,
+          name = "Volume Down",
+          type = "",
+          shape = "rectangle",
+          x = 800,
+          y = 96,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Special"] = "volumedown"
+          }
         }
       }
     },
@@ -177,284 +250,19 @@ return {
       properties = {},
       objects = {
         {
-          id = 2,
-          name = "Ranged Priest",
+          id = 39,
+          name = "[E]sc",
           type = "",
           shape = "rectangle",
-          x = 352,
-          y = 320,
-          width = 128,
+          x = 592,
+          y = 687,
+          width = 96,
           height = 32,
           rotation = 0,
           visible = true,
           properties = {
-            ["Color"] = "gray",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 3,
-          name = "Trap Priest",
-          type = "",
-          shape = "rectangle",
-          x = 352,
-          y = 352,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "gray",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 4,
-          name = "Heavy Priest",
-          type = "",
-          shape = "rectangle",
-          x = 352,
-          y = 384,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "gray",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 5,
-          name = "Previous Priest",
-          type = "",
-          shape = "rectangle",
-          x = 352,
-          y = 416,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "gray",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 6,
-          name = "Next Priest",
-          type = "",
-          shape = "rectangle",
-          x = 352,
-          y = 448,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "gray",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 7,
-          name = "Keyboard",
-          type = "",
-          shape = "rectangle",
-          x = 352,
-          y = 256,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "black",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 9,
-          name = "Controls",
-          type = "",
-          shape = "rectangle",
-          x = 320,
-          y = 224,
-          width = 160,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "black",
+            ["Color"] = "white",
             ["Font"] = "md"
-          }
-        },
-        {
-          id = 11,
-          name = "Mouse",
-          type = "",
-          shape = "rectangle",
-          x = 352,
-          y = 512,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "black",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 12,
-          name = "Action/Select",
-          type = "",
-          shape = "rectangle",
-          x = 352,
-          y = 576,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "gray",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 13,
-          name = "Cycle Priests",
-          type = "",
-          shape = "rectangle",
-          x = 352,
-          y = 608,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "gray",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 14,
-          name = "Characters",
-          type = "",
-          shape = "rectangle",
-          x = 544,
-          y = 224,
-          width = 160,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "black",
-            ["Font"] = "md"
-          }
-        },
-        {
-          id = 20,
-          name = "Quick, insightful, steady, and wise.",
-          type = "",
-          shape = "rectangle",
-          x = 544,
-          y = 320,
-          width = 160,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Align"] = "right",
-            ["Color"] = "gray",
-            ["Font"] = "xs",
-            ["yOffset"] = 0
-          }
-        },
-        {
-          id = 23,
-          name = "Trap Priest",
-          type = "",
-          shape = "rectangle",
-          x = 544,
-          y = 352,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Align"] = "right",
-            ["Color"] = "black",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 24,
-          name = "Sneaky, devious, enduring, and able.",
-          type = "",
-          shape = "rectangle",
-          x = 544,
-          y = 384,
-          width = 160,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Align"] = "left",
-            ["Color"] = "gray",
-            ["Font"] = "xs",
-            ["yOffset"] = 0
-          }
-        },
-        {
-          id = 25,
-          name = "Heavy Priest",
-          type = "",
-          shape = "rectangle",
-          x = 576,
-          y = 416,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Align"] = "left",
-            ["Color"] = "black",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 27,
-          name = "Ranged Priest",
-          type = "",
-          shape = "rectangle",
-          x = 576,
-          y = 288,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Align"] = "left",
-            ["Color"] = "black",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 28,
-          name = "Strong, determined, patient, and bold.",
-          type = "",
-          shape = "rectangle",
-          x = 544,
-          y = 448,
-          width = 160,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Align"] = "right",
-            ["Color"] = "gray",
-            ["Font"] = "xs",
-            ["yOffset"] = 0
           }
         },
         {
@@ -474,46 +282,13 @@ return {
           }
         },
         {
-          id = 32,
-          name = "Skeletons",
-          type = "",
-          shape = "rectangle",
-          x = 544,
-          y = 480,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "black",
-            ["Font"] = "sm"
-          }
-        },
-        {
-          id = 33,
-          name = "Skulls",
-          type = "",
-          shape = "rectangle",
-          x = 576,
-          y = 544,
-          width = 128,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Align"] = "left",
-            ["Color"] = "black",
-            ["Font"] = "sm"
-          }
-        },
-        {
           id = 34,
           name = "Vampires",
           type = "",
           shape = "rectangle",
-          x = 544,
-          y = 608,
-          width = 128,
+          x = 545.333,
+          y = 576,
+          width = 158.667,
           height = 32,
           rotation = 0,
           visible = true,
@@ -524,13 +299,31 @@ return {
           }
         },
         {
-          id = 35,
-          name = "Devious, determined, and unrelenting.",
+          id = 37,
+          name = "Wicked, strong, and dangerous.",
+          type = "",
+          shape = "rectangle",
+          x = 545.333,
+          y = 608,
+          width = 189.333,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "left",
+            ["Color"] = "gray",
+            ["Font"] = "xs",
+            ["yOffset"] = 0
+          }
+        },
+        {
+          id = 24,
+          name = "Sneaky, devious, enduring, and able.",
           type = "",
           shape = "rectangle",
           x = 544,
-          y = 512,
-          width = 160,
+          y = 352,
+          width = 190.667,
           height = 32,
           rotation = 0,
           visible = true,
@@ -547,26 +340,8 @@ return {
           type = "",
           shape = "rectangle",
           x = 544,
-          y = 576,
-          width = 160,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Align"] = "right",
-            ["Color"] = "gray",
-            ["Font"] = "xs",
-            ["yOffset"] = 0
-          }
-        },
-        {
-          id = 37,
-          name = "Wicked, strong, and dangerous.",
-          type = "",
-          shape = "rectangle",
-          x = 544,
-          y = 640,
-          width = 160,
+          y = 544,
+          width = 190.667,
           height = 32,
           rotation = 0,
           visible = true,
@@ -578,19 +353,300 @@ return {
           }
         },
         {
-          id = 39,
-          name = "[E]sc",
+          id = 33,
+          name = "Skulls",
           type = "",
           shape = "rectangle",
-          x = 592,
-          y = 687,
-          width = 96,
+          x = 576,
+          y = 512,
+          width = 157.333,
           height = 32,
           rotation = 0,
           visible = true,
           properties = {
-            ["Color"] = "white",
+            ["Align"] = "left",
+            ["Color"] = "black",
+            ["Font"] = "sm",
+            ["xOffset"] = 10
+          }
+        },
+        {
+          id = 35,
+          name = "Devious, determined, and unrelenting.",
+          type = "",
+          shape = "rectangle",
+          x = 544,
+          y = 480,
+          width = 189.333,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "left",
+            ["Color"] = "gray",
+            ["Font"] = "xs",
+            ["yOffset"] = 0
+          }
+        },
+        {
+          id = 32,
+          name = "Skeletons",
+          type = "",
+          shape = "rectangle",
+          x = 544,
+          y = 448,
+          width = 126.667,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Alight"] = "right",
+            ["Color"] = "black",
+            ["Font"] = "sm"
+          }
+        },
+        {
+          id = 28,
+          name = "Strong, determined, patient, and bold.",
+          type = "",
+          shape = "rectangle",
+          x = 544,
+          y = 416,
+          width = 190.667,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "left",
+            ["Color"] = "gray",
+            ["Font"] = "xs",
+            ["yOffset"] = 0
+          }
+        },
+        {
+          id = 25,
+          name = "Heavy Priest",
+          type = "",
+          shape = "rectangle",
+          x = 576,
+          y = 384,
+          width = 158.667,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "left",
+            ["Color"] = "black",
+            ["Font"] = "sm",
+            ["xOffset"] = 10
+          }
+        },
+        {
+          id = 23,
+          name = "Trap Priest",
+          type = "",
+          shape = "rectangle",
+          x = 545.333,
+          y = 320,
+          width = 157.333,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "right",
+            ["Color"] = "black",
+            ["Font"] = "sm"
+          }
+        },
+        {
+          id = 20,
+          name = "Quick, insightful, steady, and wise.",
+          type = "",
+          shape = "rectangle",
+          x = 545.333,
+          y = 288,
+          width = 190.667,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "right",
+            ["Color"] = "gray",
+            ["Font"] = "xs",
+            ["yOffset"] = 0
+          }
+        },
+        {
+          id = 42,
+          name = "Range Priest",
+          type = "",
+          shape = "rectangle",
+          x = 576,
+          y = 256,
+          width = 160,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "left",
+            ["Color"] = "black",
+            ["Font"] = "sm",
+            ["xOffset"] = 10
+          }
+        },
+        {
+          id = 14,
+          name = "Characters",
+          type = "",
+          shape = "rectangle",
+          x = 544,
+          y = 224,
+          width = 160,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Color"] = "black",
             ["Font"] = "md"
+          }
+        },
+        {
+          id = 45,
+          name = "*Wrap tiles are light brown located in the Void.",
+          type = "",
+          shape = "rectangle",
+          x = 288,
+          y = 320,
+          width = 257.333,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "left",
+            ["Color"] = "gray",
+            ["Font"] = "xs",
+            ["xOffset"] = 10
+          }
+        },
+        {
+          id = 43,
+          name = "Set cursor in Wrap tile marked by indicator.",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 256,
+          width = 222.667,
+          height = 62.6667,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "left",
+            ["Color"] = "black",
+            ["Font"] = "sm",
+            ["xOffset"] = 10
+          }
+        },
+        {
+          id = 41,
+          name = "How to Play",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 224,
+          width = 160,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Color"] = "black",
+            ["Font"] = "md"
+          }
+        },
+        {
+          id = 46,
+          name = "Spend Magic to Summon Priest",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 384,
+          width = 224,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "left",
+            ["Color"] = "black",
+            ["Font"] = "sm",
+            ["xOffset"] = 10
+          }
+        },
+        {
+          id = 47,
+          name = "Spend your magic wisely.",
+          type = "",
+          shape = "rectangle",
+          x = 288,
+          y = 416,
+          width = 256,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "left",
+            ["Color"] = "gray",
+            ["Font"] = "xs",
+            ["xOffset"] = 10
+          }
+        },
+        {
+          id = 48,
+          name = "Killing monsters will replenish magic.",
+          type = "",
+          shape = "rectangle",
+          x = 352,
+          y = 448,
+          width = 192,
+          height = 64,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "left",
+            ["Color"] = "gray",
+            ["Font"] = "xs",
+            ["xOffset"] = 10
+          }
+        },
+        {
+          id = 49,
+          name = "Last as long as you can!!",
+          type = "",
+          shape = "rectangle",
+          x = 288,
+          y = 544,
+          width = 238.667,
+          height = 62.6667,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Color"] = "black",
+            ["Font"] = "md",
+            ["xOffset"] = 10
+          }
+        },
+        {
+          id = 50,
+          name = "Volume",
+          type = "",
+          shape = "rectangle",
+          x = 800,
+          y = 96,
+          width = 128,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Color"] = "black",
+            ["Font"] = "sm"
           }
         }
       }

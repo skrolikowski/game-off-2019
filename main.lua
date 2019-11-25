@@ -11,15 +11,16 @@ Bump      = require 'vendor.bump.bump'
 --
 
 function love.load()
-    _Grid  = Grid(Config.map.rows, Config.map.cols)
-    _World = World()
-    _Cell  = _Grid:getCellByLocation(love.mouse.getPosition())
+    _Grid   = Grid(Config.map.rows, Config.map.cols)
+    _World  = World()
+    _Cell   = _Grid:getCellByLocation(love.mouse.getPosition())
+    _Volume = 1
 
     _CurrRound = 0
     _HighRound = 0
 
     Gamestate.registerEvents()
-    Gamestate.switch(GameOver)
+    Gamestate.switch(Menu)
 end
 
 -- Controls - Key Press

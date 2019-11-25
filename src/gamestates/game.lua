@@ -20,7 +20,7 @@ end
 --
 function Game:enter(from, ...)
 	self.from  = from -- previous screen
-	self.coins = 2--Config.economy.init
+	self.coins = Config.economy.init
 	self.goal  = nil  -- location of monster goal
 
 	-- flags
@@ -98,9 +98,9 @@ end
 -- Player has lost, end the game
 --
 function Game:awardCoin(value)
-	self.coin = self.coin + value
+	self.coins = self.coins + value
 
-	if self.coin == _.__floor(self.coin) then
+	if self.coins == _.__floor(self.coins) then
 		Config.audio.getCoin:play()
 	end
 end

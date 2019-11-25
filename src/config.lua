@@ -35,14 +35,6 @@ Config = {
             xl = love.graphics.newFont('res/ui/fonts/Kenney Future Narrow.ttf', 32)
         }
     },
-    audio = {
-        success     = love.audio.newSource('res/audio/coin5.ogg', 'static'),
-        fail        = love.audio.newSource('res/audio/error5.ogg', 'static'),
-        gameOver    = love.audio.newSource('res/audio/lose5.ogg', 'static'),
-        takeHit     = love.audio.newSource('res/audio/hit3.ogg', 'static'),
-        buttonClick = love.audio.newSource('res/audio/click3.ogg', 'static'),
-        getCoin     = love.audio.newSource('res/audio/coin2.ogg', 'static'),
-    },
     color = {
         black    = { _:color('black') },
         gray     = { _:color('gray-700') },
@@ -72,3 +64,13 @@ Config = {
 }
 Config.map.rows = _.__floor(Config.height / Config.map.cell.size)
 Config.map.cols = _.__floor(Config.width / Config.map.cell.size)
+
+-- Audio
+Config.audio = {
+    success     = love.audio.newSource('res/audio/coin5.ogg', 'static'),
+    fail        = love.audio.newSource('res/audio/error5.ogg', 'static'),
+    gameOver    = love.audio.newSource('res/audio/lose5.ogg', 'static'),
+    takeHit     = love.audio.newSource('res/audio/hit3.ogg', 'static'),
+    buttonClick = love.audio.newSource('res/audio/click3.ogg', 'static'),
+    getCoin     = love.audio.newSource('res/audio/coin2.ogg', 'static'),
+}

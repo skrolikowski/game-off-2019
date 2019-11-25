@@ -26,6 +26,7 @@ function TextSpawner:spawnText(textArea)
         font    = textArea.properties['Font'] or 'md',
         color   = textArea.properties['Color'] or 'white',
         align   = textArea.properties['Align'] or 'center',
+        xOffset = textArea.properties['xOffset'] or 0,
         yOffset = textArea.properties['yOffset'] or 8,
     })
 end

@@ -29,9 +29,11 @@ Vampire  = require 'src.entities.monsters.vampire'
 -- Buttons
 Button     = require 'src.entities.buttons.button'
 SpecialBtn = {
-	range = require 'src.entities.buttons.range',
-	trap  = require 'src.entities.buttons.trap',
-	heavy = require 'src.entities.buttons.heavy'
+	range      = require 'src.entities.buttons.range',
+	trap       = require 'src.entities.buttons.trap',
+	heavy      = require 'src.entities.buttons.heavy',
+	volumeup   = require 'src.entities.buttons.volumeup',
+	volumedown = require 'src.entities.buttons.volumedown',
 }
 
 return {}

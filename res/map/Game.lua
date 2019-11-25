@@ -1,7 +1,7 @@
 return {
   version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.2.5",
+  tiledversion = "1.3.1",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 32,
@@ -107,7 +107,7 @@ return {
       properties = {},
       encoding = "base64",
       compression = "zlib",
-      data = "eJytVotqwzAMvLAk0NIGsq6Bsvb/f3MV0+GrKjtptwMTE8t6P9wD6PGI4b5OyHHzb5/cQ+VfC0r/FXTI/q+dD2/oEPkPCf9joDU/TL4/Bh7ji/Ij7P68QnP9BzmGSfaU++3fxeVEmO2d6GC5MshaXpDfy7rc1w7Ft9SH54OfU67pcPY94zUGm7bIh+s8Bbtuvmgf6Uanqcl5Ny57/No7O/8Opd4UpCE0P+knyL+4j9DcNXkfG3Q1GrWTPGp9YSvs7h7FbuptshY85sINz75m/Oif2f+txYTn5K21DZSc1FwgX83hGY/xOfidWq50KD2LeZXpq/W+yF3WB3WP8etEdquP9iL3JLasgTVSA/kcGvcNtJs6DYFOcxyy136vfdhkfooOtXlW07mFWEsZvcWAvmfcMv9DzpSv8mzVsda7yjDZZjNzpVX/UTfmUQusB41bxNY+oLqZr6ynU2/VS/PxmtDGOay9aMtM4OzIcsVkM9ds7Vyu+lihM/FaoSGoM3lq7dM37H1AmbGcgZEP+4/pcPZ/nOktKM8Y0ymxoVb7E8qc3orR75xR3heZblls9L3AnviBYi/9Ql92eLaFvLM4UTedP+zXfCNxT1rt+VntxR5H3upPnX3kp72e+XfxPd8Lc8KDMgn2eCL2kQie/+XNmcn4AT0rEU4="
+      data = "eAGl1olqVEEQheGIUVBUcIkg6vu/pv3F+YdKe28SYkHb1bWeWm7G25ubm9t1Jr1Zj69TMPjfF57P7kd1JLu4HF7T/tuwgCGa8mRnevIZM/vH7j2+GHv8j5cA2erDp4uMLjnR24v8pRf/z084/1r6/80jRTXgy/tz8fJ/X0eendT+ap0w2JV65ub3XDKrzo/Fv1un3oYnvdj05YXhbh12zQs/a1rPR6ldgZnfrAsOp/oWe1+bHDCc5aF/Cb1fTvruiA+L/Dtlk9zutZ/qqRfJ2E3ee9LcXfleT+UJz2bWWYxmdeL2pJi/PlR3uOUyo+Krkc3EsJ7X+ekRcuvjbkc3KX39a7bll4ts7kJxw+RuNuX/cPEp3no+IDHUwheG5h6eJbqndt6j74uvPHyRe58fm3I3I7ZRu8K3etToXQ3ZHt3yOWdUHH04onyrmw1M4cpn7jhZc6l3yaoR9i+Ei2BQ03OJ/WNU7myO7H0f9b5Zhi2/ee/1zZgz3+T5s5u9Kofcam5Xdr+lekD5EYrZXB4YjQe9vZpzG+p7dtaw6+Z7YtMrf9PDPXHNfex7mLbiTHv5w9A3sESnJDe7o12Ru10T0+8QjLPH63klcvYOrNWz2H8ozMVsXxjWG/7VIqY3O3OOigOrA4P+oH7T/76O/50xZ1zW+rLXYAeO9oRtv9OLfRaphQ+8Yu75w3Y0m3axfqjd9+dG9aVeir3XwvdslmHj0065ycnaxTCqQ6x2rrxLdKV2I0GxZz/zC5t47YCbjzz+34RXF//qXux1f/ByRvyKRYaferJJ6WF5KRVj+v8BPSsRTg=="
     },
     {
       type = "tilelayer",
@@ -124,7 +124,7 @@ return {
       properties = {},
       encoding = "base64",
       compression = "zlib",
-      data = "eJztkckNgDAQxFIglxA3dMJRO37kkQoyEYwlf/ZjaSeE71Jhl1jH+4lXhn6DfWIb7zc+Gfpq/P/yGHHFSdQ/cMBN1J9xx0XUV+P9vb/3/+/+xpTECyBNE2U="
+      data = "eAFjYBi+wAfotQAk7Av1ajWQroGyaUn5AQ0PQsL+UMtqgXQdlD2cqdHwH3yxGwp0UiQQhw2Q02KA9oYAcdQA2R8OtDcaiCMGyP6BtnY0/kfjfzT/j9z8P9Dlz6j9oyGAHAIAIE0TZQ=="
     },
     {
       type = "tilelayer",
@@ -141,7 +141,7 @@ return {
       properties = {},
       encoding = "base64",
       compression = "zlib",
-      data = "eJztzkENACAMALFZJwTfuOB4tAo6A/DOqgOkdh0gdeoA8IULTXMBig=="
+      data = "eAHt0NEJAAAIAlFXjwgauy3Mj3OBkycxBLwC681RCxOosD/c8Qq0N0ctTGDC/nAHAQR+BA6kHgIS"
     },
     {
       type = "objectgroup",
@@ -3001,23 +3001,25 @@ return {
           visible = true,
           properties = {
             ["Color"] = "gray",
-            ["Font"] = "lg"
+            ["Font"] = "lg",
+            ["yOffset"] = 0
           }
         },
         {
           id = 133,
-          name = "Coins",
+          name = "Magic",
           type = "",
           shape = "rectangle",
-          x = 750.667,
+          x = 752,
           y = 142.667,
-          width = 128,
+          width = 126.667,
           height = 32,
           rotation = 0,
           visible = true,
           properties = {
             ["Color"] = "gray",
-            ["Font"] = "lg"
+            ["Font"] = "lg",
+            ["yOffset"] = 0
           }
         },
         {

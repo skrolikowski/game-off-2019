@@ -10,7 +10,7 @@ function GameSpawner:new(layers)
     self:spawnProps(layers['Props'])
     self:spawnBounds(layers['Bounds'])
    	self:spawnGoal(layers['Goal'])
-    --self:spawnSpawners(layers['Spawns'])
+    self:spawnSpawners(layers['Spawns'])
 end
 
 function GameSpawner:spawnSpawners(layer)

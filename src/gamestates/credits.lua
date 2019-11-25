@@ -102,11 +102,11 @@ function Credits:draw()
     self.map:draw(Config.map.xOffset, Config.map.yOffset)
 
     -- Draw banner
-    Config.spritesheet.ui:draw('bannerScroll', 390, 132)
+    Config.spritesheet.ui:draw('bannerScroll', 390, 170)
     
     -- Draw banner text
     love.graphics.setFont(Config.ui.font.md)
-    love.graphics.printf('Credits', 393, 150, 260, 'center')
+    love.graphics.printf('Credits', 393, 190, 260, 'center')
 
 	-- Draw textareas
 	for __, textArea in pairs(self.textAreas) do
