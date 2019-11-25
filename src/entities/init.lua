@@ -3,9 +3,9 @@
 
 -- Priests
 Priests = {
-	require 'src.entities.priests.range',
-	require 'src.entities.priests.trap',
-	require 'src.entities.priests.heavy',
+	range = require 'src.entities.priests.range',
+	trap  = require 'src.entities.priests.trap',
+	heavy = require 'src.entities.priests.heavy'
 }
 
 -- Spells
@@ -27,6 +27,11 @@ Skull    = require 'src.entities.monsters.skull'
 Vampire  = require 'src.entities.monsters.vampire'
 
 -- Buttons
-Button = require 'src.entities.buttons.button'
+Button     = require 'src.entities.buttons.button'
+SpecialBtn = {
+	range = require 'src.entities.buttons.range',
+	trap  = require 'src.entities.buttons.trap',
+	heavy = require 'src.entities.buttons.heavy'
+}
 
 return {}

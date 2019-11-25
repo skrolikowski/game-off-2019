@@ -1,38 +1,40 @@
--- Credits Gamestate
+-- GameOver Gamestate
 -- Shane Krolikowski
 --
 
-local Credits = {}
+local GameOver = {}
 
 -- Init
 --
-function Credits:init()
+function GameOver:init()
 	local STI = require 'vendor.sti.sti'
 
-	self.name      = 'credits'
-	self.map       = STI("res/map/Credits.lua")
-	self.textAreas = {}  -- textareas
+	self.name      = 'gameover'
+	self.map       = STI("res/map/GameOver.lua")
+	self.textAreas = {}
 
 	TextSpawner(self, self.map.layers['Text'])
 end
 
--- Enter Credits Screen
+-- Enter Menu Screen
 --
-function Credits:enter(from, ...)
-	self.from = from  -- previous screen
+function GameOver:enter(from, ...)
+	self.from = from
+
+	Config.audio.gameOver:play()
 
 	self:bootstrap()
 end
 
--- Leave Credits Screen
+-- Leave Menu Screen
 --
-function Credits:leave()
+function GameOver:leave()
 	self:destroy()
 end
 
 -- Bootstrap Screen
 --
-function Credits:bootstrap()
+function GameOver:bootstrap()
 	-- register world entities
 	ButtonSpawner(self.map.layers['Buttons'])
 
@@ -42,7 +44,7 @@ end
 
 -- Destroy Screen
 --
-function Credits:destroy()
+function GameOver:destroy()
 	-- destroy all world entities
 	_World:destroy()
 
@@ -52,7 +54,7 @@ end
 
 -- Register Game Controls
 --
-function Credits:registerControls()
+function GameOver:registerControls()
 	-- mouse settings
 	love.mouse.setVisible(true)
 	love.mouse.setCursor(Config.ui.cursor.secondary)
@@ -61,14 +63,15 @@ function Credits:registerControls()
 	_:on('mouse_click', function(...) self:onClick(...) end)
 
 	-- keyboard events
-	_:on('key_escape', function() Menu:showCredits() end)
-	_:on('key_q',      function() Menu:quitGame()    end)
-	_:on('key_m',      function() Menu:showCredits() end)
+	_:on('key_escape', function() self:switchToMenu() end)
+	_:on('key_q',      function() self:quitGame()     end)
+	_:on('key_m',      function() self:switchToMenu() end)
+	_:on('key_r',      function() self:retryGame()    end)
 end
 
 -- Unregister Game Controls
 --
-function Credits:unregisterControls()
+function GameOver:unregisterControls()
 	-- release mouse events
 	_:off('mouse_click')
 
@@ -76,28 +79,42 @@ function Credits:unregisterControls()
 	_:off('key_escape')
 	_:off('key_q')
 	_:off('key_m')
+	_:off('key_r')
 end
 
 -- Event - handle onClick
 --
-function Credits:onClick(entity, button)
-	if entity.name == '[Q]uit' then
-		Menu:quitGame()
-	elseif entity.name == '[M]enu' then
-		Menu:showCredits()
+function GameOver:onClick(entity, button)
+	if entity.name == '[M]enu' then
+		self:switchToMenu()
+	elseif entity.name == '[R]etry' then
+		self:retryGame()
+	elseif entity.name == '[Q]uit' then
+		self:quitGame()
 	end
+end
+
+-- Quit game!
+--
+function GameOver:quitGame()
+	love.event.quit()
+end
+
+-- Start Game!
+--
+function GameOver:switchToMenu()
+	Gamestate.switch(Menu)
+end
+
+-- Retry Game!
+--
+function GameOver:retryGame()
+	Gamestate.switch(Game)
 end
 
 -- Draw
 --
-function Credits:draw()
-	self.from:draw()
-
-	-- add dark overlay
-	love.graphics.setColor(Config.color.overlay)
-	love.graphics.rectangle('fill', 0, 0, Config.width, Config.height)
-
-	-- display credits
+function GameOver:draw()
 	love.graphics.setColor(Config.color.white)
     self.map:draw(Config.map.xOffset, Config.map.yOffset)
 
@@ -106,12 +123,12 @@ function Credits:draw()
     
     -- Draw banner text
     love.graphics.setFont(Config.ui.font.md)
-    love.graphics.printf('Credits', 393, 150, 260, 'center')
+    love.graphics.printf('Game Over', 393, 150, 260, 'center')
 
 	-- Draw textareas
 	for __, textArea in pairs(self.textAreas) do
-		local x, y   = textArea.x, textArea.y
-		local width  = textArea.width
+		local x, y    = textArea.x, textArea.y
+		local width   = textArea.width
 		local yOffset = textArea.yOffset
 
 		love.graphics.setFont(Config.ui.font[textArea.font])
@@ -120,4 +137,4 @@ function Credits:draw()
 	end
 end
 
-return Credits
+return GameOver

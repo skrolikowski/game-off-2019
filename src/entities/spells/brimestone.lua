@@ -19,7 +19,7 @@ function Brimstone:new(target, source)
 	self.target       = target
 	self.atkPrimary   = 2
 	self.atkSecondary = 1
-	self.atkDistance  = Config.map.cell.size
+	self.atkDistance  = Config.map.cell.size / 2
 
 	self.strikeCount = 0
 	self.strikeTotal = 10

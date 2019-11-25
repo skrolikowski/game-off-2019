@@ -9,6 +9,7 @@ local Game = {}
 function Game:init()
 	local STI = require 'vendor.sti.sti'
 
+	self.name      = 'game'
 	self.map       = STI("res/map/Game.lua")
 	self.textAreas = {}  -- textareas
 
@@ -18,12 +19,13 @@ end
 -- Enter Game Screen
 --
 function Game:enter(from, ...)
-	self.isPaused = false  -- is game paused?
-	self.from     = from   -- previous screen
-	self.priest   = nil    -- currently selected priest
-	self.coins    = 5      -- count count
-	self.goal     = nil    -- location of monster goal
-	self.place    = 1      -- currently selected priest placement
+	self.from  = from -- previous screen
+	self.coins = 2--Config.economy.init
+	self.goal  = nil  -- location of monster goal
+
+	-- flags
+	self.isPaused  = false  -- game is paused?
+	self.isPicking = nil    -- user is picking priest?
 
 	self:bootstrap()
 end
@@ -46,15 +48,11 @@ function Game:bootstrap()
 	_Grid:markTileTrait('leapable', self.map.layers['Leaps'])
 
 	-- register world entities
-	-- ButtonSpawner(self.map.layers['Buttons'])
+	ButtonSpawner(self.map.layers['Buttons'])
 	GameSpawner(self.map.layers)
 
 	-- register game controls
 	self:registerControls()
-
-	local cx, cy = _Grid:getCell(6, 1):center()
-	local properties = {}
-	_World:addEntity(Spawner(cx, cy, properties))
 end
 
 function Game:destroy()
@@ -78,43 +76,45 @@ function Game:registerControls()
 	love.mouse.setVisible(true)
 	love.mouse.setCursor(Config.ui.cursor.secondary)
 
-	-- mouse events
-	_:on('mouse_click_1', function(entity) self:onClick(entity) end)
-	_:on('mouse_hover',   function(entity) self:onHover(entity) end)
-
-	-- mouse wheel events
-	_:on('wheel_up',   function() self:prevPlacement() end)
-	_:on('wheel_down', function() self:nextPlacement() end)
-
 	-- keyboard events
     _:on('key_escape', function() self:pauseGame()     end)
     _:on('key_q',      function() self:switchToMenu()  end)
-	_:on('key_up',     function() self:prevPlacement() end)
-	_:on('key_down',   function() self:nextPlacement() end)
-	_:on('key_1',      function() self:setPlacement(1) end)
-	_:on('key_2',      function() self:setPlacement(2) end)
-	_:on('key_3',      function() self:setPlacement(3) end)
+	_:on('key_1',      function() self:makePlacement('range') end)
+	_:on('key_2',      function() self:makePlacement('trap')  end)
+	_:on('key_3',      function() self:makePlacement('heavy') end)
 end
 
 -- Unregister Game Controls
 --
 function Game:unregisterControls()
-	-- release mouse events
-	_:off('mouse_click_1')
-	_:off('mouse_hover')
-
-	-- release mouse wheel events
-	_:off('wheel_up')
-	_:off('wheel_down')
-
 	-- release keyboard events
 	_:off('key_escape')
 	_:off('key_q')
-	_:off('key_up')
-	_:off('key_down')
 	_:off('key_1')
 	_:off('key_2')
 	_:off('key_3')
+end
+
+-- Player has lost, end the game
+--
+function Game:awardCoin(value)
+	self.coin = self.coin + value
+
+	if self.coin == _.__floor(self.coin) then
+		Config.audio.getCoin:play()
+	end
+end
+
+-- Player has lost, end the game
+--
+function Game:endGame()
+	self:switchToGameOver()
+end
+
+-- Gamestate - Go to GameOver Screen
+--
+function Game:switchToGameOver()
+	Gamestate.switch(GameOver)
 end
 
 -- Gamestate - Go to Menu Screen
@@ -126,90 +126,31 @@ function Game:switchToMenu()
 	end
 end
 
---  onClick Event
+-- Place priest
 --
-function Game:onClick(entity)
-	local name = _:replace(entity.name, '%p', '')
-	      name = _:capitalize(name)
-
-	if _:isFunction(self['onClick' .. name]) then
-		self['onClick' .. name](self)
+function Game:makePlacement(name)
+	if Game.isPicking ~= nil then
+		Game.isPicking:placePriest(name)
 	end
-end
-
---  onHover Event
---
-function Game:onHover(entity)
-	local name = _:replace(entity.name, '%p', '')
-	      name = _:capitalize(name)
-
-	if _:isFunction(self['onHover' .. name]) then
-		self['onHover' .. name](self)
-	end
-end
-
--- On Click - Placement Entity
---
-function Game:onClickPlacement()
-	self.priest = nil  -- reset
-
-	-- search for priest in cell..
-	local x, y, w, h    = _Mouse:container()
-	local entities, len = _World:queryRect(x, y, w, h,
-		function(item) return item.category == 'priests' end
-	)
-
-	if len == 0 then
-		-- add priest
-		local cx, cy = _Mouse:center()
-		local priest = Priests[self.place](cx, cy)
-
-		_World:addEntity(priest)
-	else
-		-- select priest
-		self.priest = entities[1]
-	end
-end
-
--- Set priest placement
---
-function Game:setPlacement(place)
-	self.place = place
-end
-
--- Previous priest placement
---
-function Game:prevPlacement()
-	self.place = self.place - 1
-
-    if self.place < 1 then
-        self.place = #Priests
-    end
-end
-
--- Next priest placement
---
-function Game:nextPlacement()
-	self.place = self.place + 1
-
-    if self.place > #Priests then
-        self.place = 1
-    end
 end
 
 -- Pause/unpause game
 --
 function Game:pauseGame()
-love.event.quit()
+-- love.event.quit()
 	if self.isPaused then
 		self.isPaused = false
 
-		return Gamestate.pop()
+		if Gamestate.current() ~= Game then
+			return Gamestate.pop()
+		end
 	else
 		self.isPaused = true
 		self:unregisterControls()
 
-		return Gamestate.push(Pause)
+		if Gamestate.current() ~= Pause then
+			return Gamestate.push(Pause)
+		end
 	end
 end
 

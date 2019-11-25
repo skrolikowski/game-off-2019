@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 6,
-  nextobjectid = 38,
+  nextobjectid = 41,
   properties = {},
   tilesets = {
     {
@@ -107,7 +107,7 @@ return {
       properties = {},
       encoding = "base64",
       compression = "zlib",
-      data = "eJztzUsKgDAQBNEcQKPmq3j/e9rLrIcJIlbD23aFwMZVuaS99NnlltOxP+PzL1tkN1od+lmK0UGfPn369Ol/tB8lGW0OfTZ3D2dSFHc="
+      data = "eJztzbsNACAMxNAMwDew/6xkAZpTKJBsyfUzI6JbJR7iNcFf8Raf+Pj4+Pj4n/otdvGe4NPbDjN2E1s="
     },
     {
       type = "tilelayer",
@@ -124,7 +124,7 @@ return {
       properties = {},
       encoding = "base64",
       compression = "zlib",
-      data = "eJxjYBgFo2AUjAL8YO9AOwAPYGSkvR3etLcCL/AhQS0zDcLDl/pGkgRc8Mix0iH+HWlvBdUADzA8+KgcJseoaxxVAScd4v8E7a3AC06SoJaLDuExCkYBNQAAfTkEuw=="
+      data = "eJxjYBgFo2AUjAL8YO9AOwAPYGSkvR3etLcCL/AhQS0zDcLDl/pGkgRc8Mix0iH+HWlvBdUADzA8+KgcJseoaxxVAScd4v8E7a3AC06SoJaLDuFBbyALxIpQLEeGPKVAHoiVoViBDPlRgB0AAINWBr8="
     },
     {
       type = "objectgroup",
@@ -138,26 +138,26 @@ return {
       properties = {},
       objects = {
         {
-          id = 1,
-          name = "[Esc]",
+          id = 29,
+          name = "[M]enu",
           type = "",
           shape = "rectangle",
-          x = 800,
-          y = 64,
-          width = 96,
+          x = 320,
+          y = 672,
+          width = 128,
           height = 64,
           rotation = 0,
           visible = true,
           properties = {}
         },
         {
-          id = 29,
-          name = "[M]enu",
+          id = 38,
+          name = "[E]sc",
           type = "",
           shape = "rectangle",
-          x = 128,
-          y = 64,
-          width = 96,
+          x = 576,
+          y = 672,
+          width = 128,
           height = 64,
           rotation = 0,
           visible = true,
@@ -458,35 +458,19 @@ return {
           }
         },
         {
-          id = 30,
-          name = "[Esc]",
-          type = "",
-          shape = "rectangle",
-          x = 817.333,
-          y = 80,
-          width = 60,
-          height = 30.6667,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "black",
-            ["Font"] = "sm"
-          }
-        },
-        {
           id = 31,
           name = "[M]enu",
           type = "",
           shape = "rectangle",
-          x = 145.333,
-          y = 80,
-          width = 60,
+          x = 337.333,
+          y = 688,
+          width = 91,
           height = 30.6667,
           rotation = 0,
           visible = true,
           properties = {
-            ["Color"] = "black",
-            ["Font"] = "sm"
+            ["Color"] = "white",
+            ["Font"] = "md"
           }
         },
         {
@@ -591,6 +575,22 @@ return {
             ["Color"] = "gray",
             ["Font"] = "xs",
             ["yOffset"] = 0
+          }
+        },
+        {
+          id = 39,
+          name = "[E]sc",
+          type = "",
+          shape = "rectangle",
+          x = 592,
+          y = 687,
+          width = 96,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Color"] = "white",
+            ["Font"] = "md"
           }
         }
       }

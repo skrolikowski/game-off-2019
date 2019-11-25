@@ -23,6 +23,19 @@ function Goal:new(x, y)
 	})
 end
 
+function Goal:takeDamage(other, damage)
+	Entity.takeDamage(self, other, damage)
+
+	Config.audio.takeHit:play()
+end
+
+-- 
+function Goal:destroy(other)
+	Entity.destroy(self, other)
+
+	Game:endGame()
+end
+
 function Goal:draw()
 	Entity.draw(self)
 

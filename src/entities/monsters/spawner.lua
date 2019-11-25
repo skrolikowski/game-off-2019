@@ -82,7 +82,26 @@ end
 -- Spawn monster
 --
 function Spawner:spawn()
-	_World:addEntity(Skeleton(self.pos:unpack()))
+	local Entity = self:weightedChoice({
+		{ monster = Skeleton, weight = 0.5 },
+		{ monster = Skull,    weight = 0.3 },
+		{ monster = Vampire,  weight = 0.2 },
+	})
+
+	_World:addEntity(Entity(self.pos:unpack()))
+end
+
+function Spawner:weightedChoice(choices)
+	local sum      = _:sumBy(choices, function(v) return v.weight end)
+    local index    = 0
+    local selector = _.__random() * sum
+
+    while selector > 0 do
+        index    = index + 1
+        selector = selector - choices[index].weight
+    end
+
+    return choices[index].monster
 end
 
 -- Update timer instance

@@ -17,7 +17,7 @@ function Bolt:new(target, source)
 	self.sx       = 0.5
 	self.sy       = 0.5
 	self.target       = target
-	self.atkPrimary   = 3
+	self.atkPrimary   = 2
 	self.atkSecondary = 1
 	
 	-- sprite
@@ -28,7 +28,7 @@ function Bolt:new(target, source)
 		height = Config.map.cell.size,
 		frames = { { 1, 1, 1, 7 } },
 		total  = 1,
-		fps    = 12,
+		fps    = 15,
 		after  = function() self:destroy(nil) end
 	})
 
@@ -40,7 +40,7 @@ end
 --
 function Bolt:strike()
 	-- primary attack
-	self.target.entity:takeKnockback(self.source, self.atkPrimary, 0.75)
+	self.target.entity:takeKnockback(self.source, self.atkPrimary, 0.25)
 
 	-- secondary attack
 	local sx, sy   = self.source:center()
@@ -49,7 +49,7 @@ function Bolt:strike()
 	local monsters = _World:querySegment(sx, sy, tx, ty, filter)
 
 	for __, monster in pairs(monsters) do
-		monster:takeDamage(self.atkSecondary)
+		monster:takeDamage(self, self.atkSecondary)
 	end
 end
 
@@ -61,7 +61,7 @@ function Bolt:draw()
 	local sx, sy = self.source:center()
 	local tx, ty = self.pos:unpack()
 
-    love.graphics.setColor({ _:color('red-800') })
+    love.graphics.setColor({ 0.84, 0.62, 0.18, 0.25 })
     love.graphics.line(sx, sy, tx, ty)
 end
 

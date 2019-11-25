@@ -13,10 +13,13 @@ Bump      = require 'vendor.bump.bump'
 function love.load()
     _Grid  = Grid(Config.map.rows, Config.map.cols)
     _World = World()
-    _Mouse = _Grid:getCellByLocation(love.mouse.getPosition())
+    _Cell  = _Grid:getCellByLocation(love.mouse.getPosition())
+
+    _CurrRound = 0
+    _HighRound = 0
 
     Gamestate.registerEvents()
-    Gamestate.switch(Game)
+    Gamestate.switch(GameOver)
 end
 
 -- Controls - Key Press
@@ -38,25 +41,12 @@ end
 -- Controls - Mouse Move
 --
 function love.mousemoved(x, y)
-    _Mouse = _Grid:getCellByLocation(x, y)
-    --
-    local items, len = _World:queryPoint(x, y)
-
-    if len then
-        for __, entity in pairs(items) do
-            _:dispatch('mouse_hover', entity)
-        end
-    end
+    _Cell = _Grid:getCellByLocation(x, y)
+    _World:onHover(x, y)
 end
 
 -- Controls - Mouse Pressed
 --
 function love.mousepressed(x, y, button)
-    local items, len = _World:queryPoint(x, y)
-
-    if len then
-        for __, entity in pairs(items) do
-            _:dispatch('mouse_click_' .. button, entity)
-        end
-    end
+    _World:onClick(x, y, button)
 end

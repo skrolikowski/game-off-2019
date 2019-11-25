@@ -21,6 +21,18 @@ function Priest:new(x, y)
 	self.tracker = Tracker(self, 'monster')
 end
 
+-- Event - onClick
+--
+function Priest:onClick()
+    --
+end
+
+-- Event - onHover
+--
+function Priest:onHover()
+    --
+end
+
 -- Update priest behaviors
 --
 function Priest:update(dt)

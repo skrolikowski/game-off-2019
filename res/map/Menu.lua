@@ -55,7 +55,7 @@ return {
       properties = {},
       encoding = "base64",
       compression = "zlib",
-      data = "eJztzTkKgEAUBNFxARfcd/H+97RCo2ECPyPSDY8OyzntuRUntkj9HReOSP2vrsEQqDXoz1gCjeqrr776L67DFKg36Gta7CWoUXg+M+ynKFF5Pjfs/3E3ReoK9w=="
+      data = "eJztjUsKwCAQxbQVbKVaP73/WX0nkFk4WOQFQpYxhpD/88AsNCr8G/yEFv7555//iSRYhb4Kf0JWY2GAftBT8X/AC96DOsX/jnQUsApp"
     },
     {
       type = "tilelayer",
@@ -72,7 +72,7 @@ return {
       properties = {},
       encoding = "base64",
       compression = "zlib",
-      data = "eJztyKkNACAQAMFrhC/03yMINDmBQMwkazYCAPhZ2Y1TTfzX2m6eeuID3Cwe9wIF"
+      data = "eJxjYBgFMCALxIpQLDcA9ssDsTIUKwyA/aNgFIyCUTAKBifAVT/Rq97CVT+N1lujYBSMAnIAAGHsAwc="
     },
     {
       type = "objectgroup",
@@ -116,9 +116,9 @@ return {
           name = "[Q]uit",
           type = "",
           shape = "rectangle",
-          x = 128,
+          x = 97,
           y = 64,
-          width = 96,
+          width = 128,
           height = 64,
           rotation = 0,
           visible = true,
@@ -206,15 +206,15 @@ return {
           name = "[Q]uit",
           type = "",
           shape = "rectangle",
-          x = 142.667,
+          x = 114.667,
           y = 80,
-          width = 64,
+          width = 92,
           height = 32,
           rotation = 0,
           visible = true,
           properties = {
-            ["Color"] = "black",
-            ["Font"] = "sm"
+            ["Color"] = "white",
+            ["Font"] = "md"
           }
         },
         {

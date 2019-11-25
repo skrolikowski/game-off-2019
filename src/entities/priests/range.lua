@@ -16,7 +16,7 @@ function Range:new(x, y)
 	self.sightColor = Config.color.sight1
 
 	-- properties
-	self.cooldown = { now = 0, max = 1.5 }
+	self.cooldown = { now = 0, max = 1 }
 
 	-- sprite
 	self.sprite = Animator()

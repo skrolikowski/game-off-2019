@@ -9,12 +9,18 @@ local ButtonSpawner = Modern:extend()
 --
 function ButtonSpawner:new(buttons)
     for __, obj in pairs(buttons.objects) do
-        local name   = obj.name
-        local x      = obj.x + obj.width / 2
-        local y      = obj.y + obj.height / 2
-        local button = Button(name, x, y, obj.width, obj.height)
+        local name    = obj.name
+        local x       = obj.x + obj.width / 2
+        local y       = obj.y + obj.height / 2
+        local special = obj.properties['Special'] or false
 
-        _World:addEntity(button)
+        if special then
+			button = SpecialBtn[special](name, x, y, obj.width, obj.height)
+		else
+			button = Button(name, x, y, obj.width, obj.height)
+		end
+
+		_World:addEntity(button)
     end
 end
 

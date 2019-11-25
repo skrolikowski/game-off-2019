@@ -92,8 +92,8 @@ end
 function Monster:destroy()
     Entity.destroy(self)
 
-    -- aware player reward
-    Game.coins = Game.coins + self.value
+    -- award player reward
+    Game:awardCoin(self.value)
 end
 
 -- Update entity

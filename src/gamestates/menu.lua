@@ -9,6 +9,7 @@ local Menu = {}
 function Menu:init()
 	local STI = require 'vendor.sti.sti'
 
+	self.name      = 'menu'
 	self.map       = STI("res/map/Menu.lua")
 	self.textAreas = {}
 
@@ -50,9 +51,6 @@ end
 -- Destroy Screen
 --
 function Menu:destroy()
-	-- reset grid
-	_Grid:reset()
-
 	-- destroy all world entities
 	_World:destroy()
 
@@ -71,8 +69,7 @@ function Menu:registerControls()
 	love.mouse.setCursor(Config.ui.cursor.secondary)
 
 	-- mouse events
-	_:on('mouse_click_1', function(entity) self:onClick(entity) end)
-	_:on('mouse_hover',   function(entity) self:onHover(entity) end)
+	_:on('mouse_click', function(...) self:onClick(...) end)
 
 	-- keyboard events
 	_:on('key_escape', function() self:quitGame()    end)
@@ -85,8 +82,7 @@ end
 --
 function Menu:unregisterControls()
 	-- release mouse events
-	_:off('mouse_click_1')
-	_:off('mouse_hover')
+	_:off('mouse_click')
 
 	-- release keyboard events
 	_:off('key_escape')
@@ -122,62 +118,16 @@ function Menu:showCredits()
 	end
 end
 
---  onClick Event
+-- Event - handle onClick
 --
-function Menu:onClick(entity)
-	local name = _:replace(entity.name, '%p', '')
-	      name = _:capitalize(name)
-
-	if _:isFunction(self['onClick' .. name]) then
-		self['onClick' .. name](self)
+function Menu:onClick(entity, button)
+	if entity.name == '[C]redits' then
+		self:showCredits()
+	elseif entity.name == '[S]tart' then
+		self:startGame()
+	elseif entity.name == '[Q]uit' then
+		self:quitGame()
 	end
-end
-
---  onHover Event
---
-function Menu:onHover(entity)
-	local name = _:replace(entity.name, '%p', '')
-	      name = _:capitalize(name)
-
-	if _:isFunction(self['onHover' .. name]) then
-		self['onHover' .. name](self)
-	end
-end
-
--- On Click - Start Button
---
-function Menu:onClickStart()
-	self:startGame()
-end
-
--- On Hover - Start Button
---
-function Menu:onHoverStart()
-	--TODO: highlight button
-end
-
--- On Click - Credits Button
---
-function Menu:onClickCredits()
-	self:showCredits()
-end
-
--- On Hover - Credits Button
---
-function Menu:onHoverCredits()
-	--TODO: highlight button
-end
-
--- On Click - Quit Button
---
-function Menu:onClickQuit()
-	self:quitGame()
-end
-
--- On Hover - Quit Button
---
-function Menu:onHoverQuit()
-	--TODO: highlight button
 end
 
 -- Update
@@ -195,6 +145,13 @@ end
 function Menu:draw()
 	love.graphics.setColor(Config.color.white)
     self.map:draw(Config.map.xOffset, Config.map.yOffset)
+
+    -- Draw banner
+    Config.spritesheet.ui:draw('bannerScroll', 390, 132)
+    
+    -- Draw banner text
+    love.graphics.setFont(Config.ui.font.sm)
+    love.graphics.printf('Game Off 2019 Presents', 393, 150, 260, 'center')
 
 	-- Draw textareas
 	for __, textArea in pairs(self.textAreas) do

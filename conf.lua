@@ -18,7 +18,7 @@ function love.conf(t)
 
     t.window.title      = 'Tower Defense'
     -- t.window.icon       = 'res/ui/crossair_black.png'
-    t.window.x          = 25
+    t.window.x          = 100
     t.window.y          = 50
     t.window.width      = 1024
     t.window.height     = 800
@@ -27,7 +27,6 @@ function love.conf(t)
     t.window.vsync      = true
 
     t.modules.physics = false
-    t.modules.sound   = false
     t.modules.touch   = false
     t.modules.thread  = false
     t.modules.video   = false

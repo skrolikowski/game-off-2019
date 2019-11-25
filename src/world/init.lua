@@ -14,6 +14,83 @@ local World  = Modern:extend()
 --
 function World:new()
     self.world = Bump.newWorld()
+    self.selected = {}  -- currently selected entities
+    self.hovered  = {}  -- currently hovered entities
+end
+
+-- Event - handle onClick
+--
+function World:onClick(x, y, button)
+    local entities, len = _World:queryPoint(x, y)
+
+    if len > 0 then
+        for __, entity in pairs(entities) do
+            -- notify controller
+            _:dispatch('mouse_click', entity, button)
+
+            -- notify entity
+            entity:onClick(button)
+        end
+    end
+
+    -- update current selected entities
+    self.selected = entities
+end
+
+-- Event - handle onHover
+--
+function World:onHover(x, y)
+    local hovers, len = _World:queryPoint(x, y)
+
+    self:onEnter(hovers)
+    self:onLeave(hovers)
+
+    -- update current hovered entities
+    self.hovered = hovers
+end
+
+-- Event - handle onEnter
+--
+function World:onEnter(entities)
+    for k1, entity in pairs(entities) do
+        local existing = false
+
+        for k2, hovered in pairs(self.hovered) do
+            if entity == hovered then
+                existing = true
+            end
+        end
+
+        if not existing then
+            -- notify controller
+            _:dispatch('mouse_enter', entity)
+
+            -- notify entity
+            entity:onEnter()
+        end
+    end
+end
+
+-- Event - handle onLeave
+--
+function World:onLeave(entities)
+    for k1, hovered in pairs(self.hovered) do
+        local leaving = true
+
+        for k2, entity in pairs(entities) do
+            if entity == hovered then
+                leaving = false
+            end
+        end
+
+        if leaving then
+            -- notify controller
+            _:dispatch('mouse_leave', entity)
+
+            -- notify entity
+            hovered:onLeave()
+        end
+    end
 end
 
 -- Destroy all entities in world
@@ -29,7 +106,21 @@ end
 -- Add an entity to the world
 --
 function World:addEntity(entity)
+    entity.from = Gamestate.current().name
+
     self.world:add(entity, entity:container())
+end
+
+-- Remove entities from world from gamestate
+--
+function World:removeEntitiesFrom(name)
+    local entities, len = self.world:getItems()
+
+    for i = #entities, 1, -1 do
+        if entities[i].from == name then
+            self:removeEntity(entities[i])
+        end
+    end
 end
 
 -- Remove an entity from the world

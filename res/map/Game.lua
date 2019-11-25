@@ -8,8 +8,8 @@ return {
   height = 25,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 12,
-  nextobjectid = 276,
+  nextlayerid = 13,
+  nextobjectid = 284,
   properties = {},
   tilesets = {
     {
@@ -107,7 +107,7 @@ return {
       properties = {},
       encoding = "base64",
       compression = "zlib",
-      data = "eJytVouKwjAQnGJbULTQ8yzI6f//5rncDhnXTVrlBkJDstn3oz2AHs8YHuuMHHf/9sk7VM5aUPrvoEN2vnY/fKBD5D8k/E+B1vww+f4UeIxvyo+w9/MKze0f5Bgm2VPuj38XlxNhtneig+XKIGt5Q34v6/pYexTfUh/eD35PuabDxfeM1xhs2iIfrvMU7Lr7on2kG52mJufTuBzwZ+/s/DuUelOQhtD8pJ8gZ3Efoblr8nYbdDUatZM8an1hK+ztAcVu6m2yFjznwh2vvmb86J/Zz9Ziwnvy1toGSk5qLpCv5vCM5/gc/U0tVzqUnsW8yvTVel/kLeuDusf4dSK71Ud7kXsWW9bAGqmBfI6N9wbaTZ2GQKc5Dtlrv9c+bDK/RIfaPKvp3EKspYzeYkDfM26Z/yF3yld5tupY611lmGyzmbnSqv+oG/OoBdaDxi1iax9Q3cxX1tOpt+ql+XhLaOMc1l60ZSZwdmS5YrKZa7b2Lld9rNCZeKvQENSZPLX26Rv2PqDMWM7AyIf9x3S4+BlnegvKM8Z0Smyo1f6EMqe3YvQ3F5T/i0y3LDb6v8CeuEOxl36hLzu82kLeWZyom84f9mv+I3FPWu35We3FHkfe6k+dfeSnvZ75d/U9/xfmhAdlEuzxROwjEWv3W5Dx+AU7SxFI"
+      data = "eJytVotqwzAMvLAk0NIGsq6Bsvb/f3MV0+GrKjtptwMTE8t6P9wD6PGI4b5OyHHzb5/cQ+VfC0r/FXTI/q+dD2/oEPkPCf9joDU/TL4/Bh7ji/Ij7P68QnP9BzmGSfaU++3fxeVEmO2d6GC5MshaXpDfy7rc1w7Ft9SH54OfU67pcPY94zUGm7bIh+s8Bbtuvmgf6Uanqcl5Ny57/No7O/8Opd4UpCE0P+knyL+4j9DcNXkfG3Q1GrWTPGp9YSvs7h7FbuptshY85sINz75m/Oif2f+txYTn5K21DZSc1FwgX83hGY/xOfidWq50KD2LeZXpq/W+yF3WB3WP8etEdquP9iL3JLasgTVSA/kcGvcNtJs6DYFOcxyy136vfdhkfooOtXlW07mFWEsZvcWAvmfcMv9DzpSv8mzVsda7yjDZZjNzpVX/UTfmUQusB41bxNY+oLqZr6ynU2/VS/PxmtDGOay9aMtM4OzIcsVkM9ds7Vyu+lihM/FaoSGoM3lq7dM37H1AmbGcgZEP+4/pcPZ/nOktKM8Y0ymxoVb7E8qc3orR75xR3heZblls9L3AnviBYi/9Ql92eLaFvLM4UTedP+zXfCNxT1rt+VntxR5H3upPnX3kp72e+XfxPd8Lc8KDMgn2eCL2kQie/+XNmcn4AT0rEU4="
     },
     {
       type = "tilelayer",
@@ -673,6 +673,19 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 280,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 384,
+          y = 768,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -823,19 +836,6 @@ return {
           type = "",
           shape = "rectangle",
           x = 320,
-          y = 768,
-          width = 32,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 177,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 352,
           y = 768,
           width = 32,
           height = 32,
@@ -1234,19 +1234,6 @@ return {
           properties = {}
         },
         {
-          id = 121,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 320,
-          y = 640,
-          width = 64,
-          height = 128,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 122,
           name = "",
           type = "",
@@ -1424,6 +1411,19 @@ return {
           y = 320,
           width = 32,
           height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 278,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 640,
+          width = 64,
+          height = 160,
           rotation = 0,
           visible = true,
           properties = {}
@@ -2872,19 +2872,6 @@ return {
           properties = {}
         },
         {
-          id = 251,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 384,
-          y = 768,
-          width = 320,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 252,
           name = "",
           type = "",
@@ -2945,6 +2932,19 @@ return {
           y = 0,
           width = 160,
           height = 128,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 279,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 416,
+          y = 768,
+          width = 288,
+          height = 32,
           rotation = 0,
           visible = true,
           properties = {}
@@ -3066,6 +3066,64 @@ return {
           properties = {
             ["Color"] = "gray",
             ["Font"] = "sm"
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      id = 12,
+      name = "Buttons",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 281,
+          name = "Range",
+          type = "",
+          shape = "rectangle",
+          x = 896,
+          y = 224,
+          width = 96,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Special"] = "range"
+          }
+        },
+        {
+          id = 282,
+          name = "Trap",
+          type = "",
+          shape = "rectangle",
+          x = 896,
+          y = 352,
+          width = 96,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Special"] = "trap"
+          }
+        },
+        {
+          id = 283,
+          name = "Heavy",
+          type = "",
+          shape = "rectangle",
+          x = 896,
+          y = 480,
+          width = 96,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Special"] = "heavy"
           }
         }
       }

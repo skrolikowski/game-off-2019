@@ -8,8 +8,8 @@ return {
   height = 25,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 4,
-  nextobjectid = 5,
+  nextlayerid = 5,
+  nextobjectid = 7,
   properties = {},
   tilesets = {
     {
@@ -43,7 +43,7 @@ return {
     {
       type = "tilelayer",
       id = 1,
-      name = "UI",
+      name = "UI Back",
       x = 0,
       y = 0,
       width = 32,
@@ -55,7 +55,24 @@ return {
       properties = {},
       encoding = "base64",
       compression = "zlib",
-      data = "eJztzcsNgDAQA9EtAMInEEDpv8/4yHm1BIHG0rt6zNh9u1xSXvo8pMoZ2H/i8+8bZA4yOvpZtiALffr06dOn/5F+kjXI5OizPmtRhxlf"
+      data = "eJztzcsJACAMBNEU4Dfaf63m7DEsgjADc35mRHRX4iG6JvwVb9ETHx8fHx//E7/FLronfHrTAR2rGEM="
+    },
+    {
+      type = "tilelayer",
+      id = 4,
+      name = "UI Front",
+      x = 0,
+      y = 0,
+      width = 32,
+      height = 25,
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      encoding = "base64",
+      compression = "zlib",
+      data = "eJztyrkJACAQAMFrxA/771EDwVi4wGAGNtsIAAD4S9mNU034XrXdPPWEj2sBEp0CBQ=="
     },
     {
       type = "objectgroup",
@@ -73,22 +90,22 @@ return {
           name = "[Q]uit",
           type = "",
           shape = "rectangle",
-          x = 128,
-          y = 64,
-          width = 96,
+          x = 289,
+          y = 673,
+          width = 124,
           height = 64,
           rotation = 0,
           visible = true,
           properties = {}
         },
         {
-          id = 2,
-          name = "[Esc]",
+          id = 5,
+          name = "[M]enu",
           type = "",
           shape = "rectangle",
-          x = 800,
-          y = 64,
-          width = 96,
+          x = 608,
+          y = 672,
+          width = 128,
           height = 64,
           rotation = 0,
           visible = true,
@@ -108,35 +125,35 @@ return {
       properties = {},
       objects = {
         {
-          id = 3,
-          name = "[Esc]",
-          type = "",
-          shape = "rectangle",
-          x = 816,
-          y = 78.6667,
-          width = 64,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "black",
-            ["Font"] = "sm"
-          }
-        },
-        {
           id = 4,
           name = "[Q]uit",
           type = "",
           shape = "rectangle",
-          x = 142.667,
-          y = 81.3333,
-          width = 64,
+          x = 303.667,
+          y = 688.333,
+          width = 94,
           height = 32,
           rotation = 0,
           visible = true,
           properties = {
-            ["Color"] = "black",
-            ["Font"] = "sm"
+            ["Color"] = "white",
+            ["Font"] = "md"
+          }
+        },
+        {
+          id = 6,
+          name = "[M]enu",
+          type = "",
+          shape = "rectangle",
+          x = 624,
+          y = 688,
+          width = 96,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Color"] = "white",
+            ["Font"] = "md"
           }
         }
       }

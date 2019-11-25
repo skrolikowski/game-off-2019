@@ -169,9 +169,9 @@ end
 
 -- Multiplication operator
 --
-function Vec2:__mul(v)
-    if type(v) == 'number' then
-        return self:copy():scale(v)
+function Vec2:__mul(other)
+    if type(other) == 'number' then
+        return self:copy():scale(other)
     end
 
     return Vec2(
@@ -182,13 +182,13 @@ end
 
 -- Equals operator
 --
-function Vec2:__eq(v)
-    return self:equal(v)
+function Vec2:__eq(other)
+    return self.x == other.x and self.y == other.y
 end
 
 -- Unary minus operator
 --
-function Vec2:__unm(v)
+function Vec2:__unm()
     return self:copy():scale(-1)
 end
 

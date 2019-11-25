@@ -81,7 +81,25 @@ function Entity:destroy(other)
     self.remove = true
 end
 
--- Collision resolution
+-- Event - onClick
+--
+function Entity:onClick()
+    --
+end
+
+-- Event - onLeave
+--
+function Entity:onLeave()
+    --
+end
+
+-- Event - onEnter
+--
+function Entity:onEnter()
+    --
+end
+
+-- Event - Collision Resolution
 --
 function Entity:collidedWith(other, collision)
     --

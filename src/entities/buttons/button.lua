@@ -12,4 +12,10 @@ function Button:new(name, x, y, width, height)
 	self.height   = height
 end
 
+-- Event - handle onClick
+--
+function Button:onClick()
+	Config.audio.buttonClick:play()
+end
+
 return Button
