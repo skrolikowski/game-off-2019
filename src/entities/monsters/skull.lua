@@ -8,14 +8,15 @@ local Skull   = Monster:extend()
 function Skull:new(x, y)
     Monster.new(self, x, y)
 
-    self.name = 'skull'
-    self.sx   = 1
+	self.name = 'skull'
+	self.sx   = 1
 	self.sy   = 1
 	self.mass = 3
-	self.value    = 0.03
-	self.maxSpeed = 50
-    self.maxForce = 25
+	self.value    = 0.0125  -- 75 / coin
+	self.maxSpeed = 60
+    self.maxForce = 35
     self.atkStr   = 1
+    self.scale    = { min = 1, max = 1.5 }
     self.health   = { now = 5, max = 5 }
 
 	self.sprite = Animator()

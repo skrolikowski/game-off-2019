@@ -11,12 +11,12 @@ function Range:new(x, y)
 	Priest.new(self, x, y)
 
 	-- @overrides
-	self.name  = 'range-priest'
-	self.sight = 175
+	self.name  = 'range'
+	self.sight = 180
 	self.sightColor = Config.color.sight1
 
 	-- properties
-	self.cooldown = { now = 0, max = 1 }
+	self.cooldown = { now = 0, max = 0.8 }
 
 	-- sprite
 	self.sprite = Animator()

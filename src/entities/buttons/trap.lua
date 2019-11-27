@@ -32,7 +32,7 @@ function TrapBtn:draw()
 	local x, y, w, h = self:container()
 	local color
 
-	if self.cost <= Game.coins then
+	if self.cost <= Game.magic then
 		color = Config.color.white
 	else
 		color = Config.color.health

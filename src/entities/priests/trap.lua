@@ -11,8 +11,8 @@ function Trap:new(x, y)
 	Priest.new(self, x, y)
 
 	-- @overrides
-	self.name  = 'trap-priest'
-	self.sight = 175
+	self.name  = 'trap'
+	self.sight = 160
 	self.sightColor = Config.color.sight3
 
 	-- properties

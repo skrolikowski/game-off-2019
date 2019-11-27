@@ -9,9 +9,10 @@ local Game = {}
 function Game:init()
 	local STI = require 'vendor.sti.sti'
 
-	self.name      = 'game'
-	self.map       = STI("res/map/Game.lua")
-	self.textAreas = {}  -- textareas
+	self.name        = 'game'
+	self.map         = STI("res/map/Game.lua")
+	self.textAreas   = {}  -- textareas
+	self.waveManager = WaveManager()
 
 	TextSpawner(self, self.map.layers['Text'])
 end
@@ -20,7 +21,7 @@ end
 --
 function Game:enter(from, ...)
 	self.from  = from -- previous screen
-	self.coins = Config.economy.init
+	self.magic = Config.economy.init
 	self.goal  = nil  -- location of monster goal
 
 	-- flags
@@ -51,6 +52,9 @@ function Game:bootstrap()
 	ButtonSpawner(self.map.layers['Buttons'])
 	GameSpawner(self.map.layers)
 
+	-- start waves
+	self.waveManager:bootstrap(self.map.layers['Spawns'])
+
 	-- register game controls
 	self:registerControls()
 end
@@ -61,6 +65,9 @@ function Game:destroy()
 
 	-- destroy all world entities
 	_World:destroy()
+
+	-- destroy wave spawners
+	self.waveManager:destroy()
 
 	-- clear timer functions
 	Timer.clear()
@@ -97,10 +104,13 @@ end
 
 -- Player has lost, end the game
 --
-function Game:awardCoin(value)
-	self.coins = self.coins + value
+function Game:awardMagic(value)
+	local soundCheck = _.__floor(self.magic) + 1
 
-	if self.coins == _.__floor(self.coins) then
+	-- update magic
+	self.magic = self.magic + value
+
+	if soundCheck == _.__floor(self.magic) then
 		Config.audio.getCoin:play()
 	end
 end
@@ -111,10 +121,22 @@ function Game:endGame()
 	self:switchToGameOver()
 end
 
+-- Player has lost, end the game
+--
+function Game:winGame()
+	self:switchToGameWin()
+end
+
 -- Gamestate - Go to GameOver Screen
 --
 function Game:switchToGameOver()
 	Gamestate.switch(GameOver)
+end
+
+-- Gamestate - Go to GameWin Screen
+--
+function Game:switchToGameWin()
+	Gamestate.switch(GameWin)
 end
 
 -- Gamestate - Go to Menu Screen
@@ -161,26 +183,33 @@ function Game:update(dt)
 		return
 	end
 
+	-- update global timer
     Timer.update(dt)
+    
+    -- update world entities
     _World:update(dt)
+
+    -- update wave manager
+    self.waveManager:update(dt)
 end
 
 -- Draw
 --
 function Game:draw()
+	-- draw tiles/background
 	love.graphics.setColor(Config.color.white)
 	self.map:draw(Config.map.xOffset, Config.map.yOffset)
     
+    -- draw entities
     _World:draw()
-	-- _Grid:draw()
 
-	-- draw Stats
+	-- draw stats
 	love.graphics.setColor(Config.color.black)
 	love.graphics.setFont(Config.ui.font.lg)
-	-- coin count
-	love.graphics.printf(_.__floor(self.coins), 930, 50, Config.map.cell.size * 2, 'center')
 	-- round number
-	love.graphics.printf(Spawner.roundCount or 1, 930, 150, Config.map.cell.size * 2, 'center')
+	love.graphics.printf(_CurrRound or 1, 930, 50, Config.map.cell.size * 2, 'center')
+	-- magic count
+	love.graphics.printf(_.__floor(self.magic), 930, 150, Config.map.cell.size * 2, 'center')
 
 	-- draw textareas
 	for __, textArea in pairs(self.textAreas) do

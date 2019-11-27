@@ -14,11 +14,11 @@ function Blaze:new(target, source)
 	self.pos          = Vec2(target.entity:center())
 	self.source       = source
 	self.color        = Config.color.white
-	self.sx           = 0.75
-	self.sy           = 0.75
+	self.sx           = 0.8
+	self.sy           = 0.8
 	self.target       = target
-	self.atkPrimary   = 5
-	self.atkSecondary = 2.5
+	self.atkPrimary   = 8
+	self.atkSecondary = 4
 	self.atkDistance  = Config.map.cell.size
 
 	-- sprite
@@ -59,6 +59,9 @@ function Blaze:strike()
 			monster:takeKnockback(self.source, self.atkSecondary, 1)
 		end
 	end
+
+	-- play sfx
+	Config.audio.blaze:play()
 end
 
 return Blaze

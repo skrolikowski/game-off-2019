@@ -170,6 +170,8 @@ function World:moveEntity(entity, nextPos)
             entity:collidedWith(cols[i].other, cols[i])
         end
     end
+
+    return entity.pos
 end
 
 function World:convertToWorldPosition(x, y, w, h)

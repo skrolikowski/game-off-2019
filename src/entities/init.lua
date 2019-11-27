@@ -21,10 +21,11 @@ Leap      = require 'src.entities.misc.leap'
 Placement = require 'src.entities.misc.placement'
 
 -- Monsters
-Spawner  = require 'src.entities.monsters.spawner'
-Skeleton = require 'src.entities.monsters.skeleton'
-Skull    = require 'src.entities.monsters.skull'
-Vampire  = require 'src.entities.monsters.vampire'
+Monsters = {
+	require 'src.entities.monsters.skeleton',
+	require 'src.entities.monsters.skull',
+	require 'src.entities.monsters.vampire',
+}
 
 -- Buttons
 Button     = require 'src.entities.buttons.button'

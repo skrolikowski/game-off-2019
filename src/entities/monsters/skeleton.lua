@@ -8,15 +8,16 @@ local Skeleton = Monster:extend()
 function Skeleton:new(x, y)
     Monster.new(self, x, y)
 
-    self.name     = 'skeleton'
-    self.sx       = 1.25
+	self.name     = 'skeleton'
+	self.sx       = 1.25
 	self.sy       = 1.25
 	self.mass     = 5
-	self.value    = 0.05
+	self.value    = 0.0125  -- 75 / coin
 	self.maxSpeed = 30
     self.maxForce = 15
     self.atkStr   = 2
-    self.health   = { now = 10, max = 10 }
+    self.scale    = { min = 1.25, max = 1.75 }
+    self.health   = { now = 15, max = 15 }
 
 	self.sprite = Animator()
 	if (_.__random(2) == 1) then

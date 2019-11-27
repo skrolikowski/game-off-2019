@@ -9,7 +9,7 @@ function Torch:new(x, y)
 	self.sx       = 2
 	self.sy       = 2
 	self.oy       = 8
-	self.react    = 'bounce'
+	self.react    = 'touch'
 
 	-- Sprite
 	self.sprite = Animator()

@@ -51,6 +51,9 @@ function Bolt:strike()
 	for __, monster in pairs(monsters) do
 		monster:takeDamage(self, self.atkSecondary)
 	end
+
+	-- play sfx
+	Config.audio.bolt:play()
 end
 
 -- Draw projectile

@@ -1,7 +1,7 @@
 return {
   version = "1.2",
   luaversion = "5.1",
-  tiledversion = "1.2.5",
+  tiledversion = "1.3.1",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 32,
@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 5,
-  nextobjectid = 9,
+  nextobjectid = 10,
   properties = {},
   tilesets = {
     {
@@ -243,12 +243,28 @@ return {
           x = 320,
           y = 224,
           width = 384,
-          height = 128,
+          height = 63.4961,
           rotation = 0,
           visible = true,
           properties = {
             ["Color"] = "black",
             ["Font"] = "xl"
+          }
+        },
+        {
+          id = 9,
+          name = "You survived to round...",
+          type = "",
+          shape = "rectangle",
+          x = 384,
+          y = 288,
+          width = 256,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Color"] = "gray",
+            ["Font"] = "md"
           }
         }
       }

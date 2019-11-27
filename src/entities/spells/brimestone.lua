@@ -67,6 +67,9 @@ function Brimstone:burn(x, y, w, h, filter)
 				monster:takeDamage(self, self.atkSecondary)
 			end
 		end
+
+		-- play sfx
+		Config.audio.brimstone:play()
 	else
 		self:destroy(nil)
 	end

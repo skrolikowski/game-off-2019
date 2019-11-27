@@ -8,19 +8,11 @@ local GameSpawner = Modern:extend()
 function GameSpawner:new(layers)
     self:spawnPlacements(layers['Placements'])
     self:spawnProps(layers['Props'])
-    self:spawnBounds(layers['Bounds'])
    	self:spawnGoal(layers['Goal'])
-    self:spawnSpawners(layers['Spawns'])
-end
 
-function GameSpawner:spawnSpawners(layer)
-    for __, obj in pairs(layer.objects) do
-        local cx      = obj.x + obj.width / 2
-        local cy      = obj.y + obj.height / 2
-        local spawner = Spawner(cx, cy, obj.properties)
-
-        _World:addEntity(spawner)
-    end
+    -- :)
+    self:spawnLeaps(layers['Leaps'])
+    self:spawnBounds(layers['Bounds'])
 end
 
 -- Remove an entity by name from the World
@@ -98,6 +90,15 @@ function GameSpawner:spawnBounds(layer)
         local cy = obj.y + obj.height / 2
 
         _World:addEntity(Bound(cx, cy, obj.width, obj.height))
+    end
+end
+
+function GameSpawner:spawnLeaps(layer)
+    for __, obj in pairs(layer.objects) do
+        local cx = obj.x + obj.width / 2
+        local cy = obj.y + obj.height / 2
+
+        _World:addEntity(Leap(cx, cy, obj.width, obj.height))
     end
 end
 

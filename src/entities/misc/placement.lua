@@ -30,7 +30,7 @@ end
 -- Purchase Priest (w/ validation)
 --
 function Placement:placePriest(name)
-	if Config.economy.cost[name] <= Game.coins then
+	if Config.economy.cost[name] <= Game.magic then
 		_World:addEntity(
 			Priests[name](self.pos:unpack())
 		)
@@ -43,7 +43,7 @@ function Placement:placePriest(name)
 		Game.isPicking = nil
 
 		-- purchase!
-		Game.coins = Game.coins - Config.economy.cost[name]
+		Game.magic = Game.magic - Config.economy.cost[name]
 
 		-- play sfx - success
 		Config.audio.success:play()
@@ -63,6 +63,10 @@ function Placement:onClick(button)
 
 			Game.isPaused  = true
 			Game.isPicking = self
+		end
+	elseif button == 2 then
+		if self.hasPriest then
+			self.hasPriest = false
 		end
 	end
 end

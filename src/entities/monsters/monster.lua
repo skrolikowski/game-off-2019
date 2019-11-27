@@ -13,9 +13,14 @@ function Monster:new(x, y)
     self.vel      = Vec2()
     self.acc      = Vec2()
 
+    -- flags
+    self.highlight = false
+    self.mirrored  = false
+
     -- behavior
-    self.steer = Steer(self)
-    self.fsm   = FSM(self, 'follow')
+    self.leaping = false
+    self.steer   = Steer(self)
+    self.fsm     = FSM(self, 'follow')
     self:maproute()
 end
 
@@ -56,6 +61,10 @@ function Monster:nextPosition(dt)
     -- limit velocity
     self.vel:limit(self.maxSpeed)
 
+    -- set heading
+    local heading = self.vel:heading()
+    self.mirrored = not (heading >= -_.__pi / 2 and heading <= _.__pi / 2)
+
     return self.pos + self.vel * dt
 end
 
@@ -67,6 +76,8 @@ function Monster:collidedWith(other, collision)
     	other:takeDamage(self, self.atkStr)
     elseif other.name == 'bound' then
         self:destroy(other)
+    elseif other.name == 'leap' then
+        self.leaping = true
     end
 end
 
@@ -89,11 +100,15 @@ end
 
 -- Destroy monster entity
 --
-function Monster:destroy()
-    Entity.destroy(self)
+function Monster:destroy(other)
+    Entity.destroy(self, other)
 
     -- award player reward
-    Game:awardCoin(self.value)
+    Game:awardMagic(self.value)
+
+    if other and other.name == 'bound' then
+        Config.audio.fall:play()
+    end
 end
 
 -- Update entity
@@ -101,8 +116,28 @@ end
 function Monster:update(dt)
     Entity.update(self, dt)
 
+    -- reset
+    self.leaping = false
+
     _World:moveEntity(self, self:nextPosition(dt))
 
+    -- face image based on direction
+    --
+
+
+    -- goofy leap animation
+    --
+    if self.leaping and self.sx < self.scale.max then
+        self.sx = self.sx + dt
+        self.sy = self.sy + dt
+    else
+        if self.sx > self.scale.min then
+            self.sx = self.sx - dt
+            self.sy = self.sy - dt
+        end
+    end
+
+    -- remove if out of bounds
     if not self:inBounds() then
         self:destroy(nil)
     end
@@ -114,11 +149,6 @@ function Monster:draw()
     Entity.draw(self)
 
     local x, y, w, h = self:container()
-
-    -- if #self.points >= 4 then
-    --     love.graphics.setColor(Config.color.debug)
-    --     love.graphics.line(self.points)
-    -- end
 
     -- health bar
     love.graphics.setColor(Config.color.health)

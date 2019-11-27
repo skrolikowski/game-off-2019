@@ -84,11 +84,12 @@ function Tracker:draw()
 	love.graphics.setColor(self.host.sightColor[1], self.host.sightColor[2], self.host.sightColor[3], 0.25)
 	love.graphics.circle('fill', cx, cy, self.host.sight)
 
-	if self.target then
-		love.graphics.setColor(Config.color.target)
-		love.graphics.setLineWidth(1)
-		love.graphics.line(cx, cy, self.target.entity:center())
-	end
+	-- line to target
+	-- if self.target then
+	-- 	love.graphics.setColor(Config.color.target)
+	-- 	love.graphics.setLineWidth(1)
+	-- 	love.graphics.line(cx, cy, self.target.entity:center())
+	-- end
 end
 
 return Tracker

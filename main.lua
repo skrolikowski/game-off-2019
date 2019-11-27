@@ -14,13 +14,13 @@ function love.load()
     _Grid   = Grid(Config.map.rows, Config.map.cols)
     _World  = World()
     _Cell   = _Grid:getCellByLocation(love.mouse.getPosition())
-    _Volume = 1
+    _Volume = 0.75
 
-    _CurrRound = 0
-    _HighRound = 0
+    _CurrRound   = 0
+    _HighRound   = 0
 
     Gamestate.registerEvents()
-    Gamestate.switch(Menu)
+    Gamestate.switch(Game)
 end
 
 -- Controls - Key Press

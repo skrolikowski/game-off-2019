@@ -11,12 +11,12 @@ function Heavy:new(x, y)
 	Priest.new(self, x, y)
 
 	-- @overrides
-	self.name  = 'heavy-priest'
-	self.sight = 100
+	self.name  = 'heavy'
+	self.sight = 145
 	self.sightColor = Config.color.sight2
 
 	-- properties
-	self.cooldown = { now = 0, max = 3 }
+	self.cooldown = { now = 0, max = 8 }
 
 	-- sprite
 	self.sprite = Animator()

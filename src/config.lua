@@ -12,6 +12,25 @@ Config = {
             size = 32
         }
     },
+    rounds = {
+        delay = 60,
+        total = 10,
+    },
+    audio = {
+        success     = love.audio.newSource('res/audio/coin5.ogg', 'static'),
+        fail        = love.audio.newSource('res/audio/error5.ogg', 'static'),
+        fall        = love.audio.newSource('res/audio/lose4.ogg', 'static'),
+        gameOver    = love.audio.newSource('res/audio/lose5.ogg', 'static'),
+        gameWin     = love.audio.newSource('res/audio/secret5.ogg', 'static'),
+        roundStart  = love.audio.newSource('res/audio/radar2.ogg', 'static'),
+        roundOver   = love.audio.newSource('res/audio/secret3.ogg', 'static'),
+        takeHit     = love.audio.newSource('res/audio/upgrade1.ogg', 'static'),
+        bolt        = love.audio.newSource('res/audio/hit3.ogg', 'static'),
+        blaze       = love.audio.newSource('res/audio/explosion1.ogg', 'static'),
+        brimstone   = love.audio.newSource('res/audio/hurt1.ogg', 'static'),
+        buttonClick = love.audio.newSource('res/audio/click3.ogg', 'static'),
+        getCoin     = love.audio.newSource('res/audio/coin2.ogg', 'static'),
+    },
     image = {
         spritesheet = {
             entities   = love.graphics.newImage('res/spritesheets/entities1.png'),
@@ -51,7 +70,7 @@ Config = {
         sight3   = { _:color('green-200') }
     },
     economy = {
-        init = 5,
+        init = 3,
         cost = {
             range = 1,
             trap  = 2,
@@ -62,15 +81,6 @@ Config = {
             ui = Spritesheet('res/spritesheets/interfacePack_sheet.json')
         }
 }
+
 Config.map.rows = _.__floor(Config.height / Config.map.cell.size)
 Config.map.cols = _.__floor(Config.width / Config.map.cell.size)
-
--- Audio
-Config.audio = {
-    success     = love.audio.newSource('res/audio/coin5.ogg', 'static'),
-    fail        = love.audio.newSource('res/audio/error5.ogg', 'static'),
-    gameOver    = love.audio.newSource('res/audio/lose5.ogg', 'static'),
-    takeHit     = love.audio.newSource('res/audio/hit3.ogg', 'static'),
-    buttonClick = love.audio.newSource('res/audio/click3.ogg', 'static'),
-    getCoin     = love.audio.newSource('res/audio/coin2.ogg', 'static'),
-}

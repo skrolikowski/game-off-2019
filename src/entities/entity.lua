@@ -83,7 +83,7 @@ end
 
 -- Event - onClick
 --
-function Entity:onClick()
+function Entity:onClick(button)
     --
 end
 
@@ -120,56 +120,16 @@ function Entity:draw()
         local cx, cy = self:center()
         local w, h   = self:dimensions()
         local ox, oy = self.ox or 0, self.oy or 0
+        local sx, sy = self.sx, self.sy
+
+        if self.mirrored then
+            sx = -sx
+        end
 
         love.graphics.setColor(self.color)
 
-        self.sprite:draw(cx, cy, 0, self.sx, self.sy, w/2 + ox, h/2 + oy)
+        self.sprite:draw(cx, cy, 0, sx, sy, w/2 + ox, h/2 + oy)
     end
 end
-
------------------------------------------------
--- function Entity:follow()
---     local target, last = self:nextTarget()
---     local force = Vec2()
-
---     if last then
---         self:applyForce(self:arrive(target))
---     else
---         self:applyForce(self:seek(target))
---     end
--- end
-
--- function Entity:seek(target)
---     local desired, steer
-
---     desired = target - self.pos
---     desired:normalize()
---     desired:scale(self.maxSpeed)
-
---     steer = desired - self.vel
---     steer:limit(self.maxForce)
-
---     return steer
--- end
-
--- function Entity:arrive(target)
---     local desired  = target - self.pos
---     local distance = desired:magnitude()
---     local stopDist = 50
---     local maxSpeed = self.maxSpeed
---     local steer
-
---     if distance < stopDist then
---         maxSpeed = _:mapTo(distance, 0, stopDist, 0, self.maxSpeed)
---     end
-
---     desired:normalize()
---     desired:scale(maxSpeed)
-
---     steer = desired - self.vel
---     steer:limit(self.maxForce)
-
---     return steer
--- end
 
 return Entity

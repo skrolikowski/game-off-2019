@@ -1,16 +1,16 @@
--- GameOver Gamestate
+-- GameWin Gamestate
 -- Shane Krolikowski
 --
 
-local GameOver = {}
+local GameWin = {}
 
 -- Init
 --
-function GameOver:init()
+function GameWin:init()
 	local STI = require 'vendor.sti.sti'
 
-	self.name      = 'gameover'
-	self.map       = STI("res/map/GameOver.lua")
+	self.name      = 'gamewin'
+	self.map       = STI("res/map/GameWin.lua")
 	self.textAreas = {}
 
 	TextSpawner(self, self.map.layers['Text'])
@@ -18,23 +18,23 @@ end
 
 -- Enter Menu Screen
 --
-function GameOver:enter(from, ...)
+function GameWin:enter(from, ...)
 	self.from = from
 
-	Config.audio.gameOver:play()
+	Config.audio.gameWin:play()
 
 	self:bootstrap()
 end
 
 -- Leave Menu Screen
 --
-function GameOver:leave()
+function GameWin:leave()
 	self:destroy()
 end
 
 -- Bootstrap Screen
 --
-function GameOver:bootstrap()
+function GameWin:bootstrap()
 	-- register world entities
 	ButtonSpawner(self.map.layers['Buttons'])
 
@@ -44,7 +44,7 @@ end
 
 -- Destroy Screen
 --
-function GameOver:destroy()
+function GameWin:destroy()
 	-- destroy all world entities
 	_World:destroy()
 
@@ -54,7 +54,7 @@ end
 
 -- Register Game Controls
 --
-function GameOver:registerControls()
+function GameWin:registerControls()
 	-- mouse settings
 	love.mouse.setVisible(true)
 	love.mouse.setCursor(Config.ui.cursor.secondary)
@@ -66,12 +66,11 @@ function GameOver:registerControls()
 	_:on('key_escape', function() self:switchToMenu() end)
 	_:on('key_q',      function() self:quitGame()     end)
 	_:on('key_m',      function() self:switchToMenu() end)
-	_:on('key_r',      function() self:retryGame()    end)
 end
 
 -- Unregister Game Controls
 --
-function GameOver:unregisterControls()
+function GameWin:unregisterControls()
 	-- release mouse events
 	_:off('mouse_click')
 
@@ -79,16 +78,13 @@ function GameOver:unregisterControls()
 	_:off('key_escape')
 	_:off('key_q')
 	_:off('key_m')
-	_:off('key_r')
 end
 
 -- Event - handle onClick
 --
-function GameOver:onClick(entity, button)
+function GameWin:onClick(entity, button)
 	if entity.name == '[M]enu' then
 		self:switchToMenu()
-	elseif entity.name == '[R]etry' then
-		self:retryGame()
 	elseif entity.name == '[Q]uit' then
 		self:quitGame()
 	end
@@ -96,25 +92,19 @@ end
 
 -- Quit game!
 --
-function GameOver:quitGame()
+function GameWin:quitGame()
 	love.event.quit()
 end
 
 -- Start Game!
 --
-function GameOver:switchToMenu()
+function GameWin:switchToMenu()
 	Gamestate.switch(Menu)
-end
-
--- Retry Game!
---
-function GameOver:retryGame()
-	Gamestate.switch(Game)
 end
 
 -- Draw
 --
-function GameOver:draw()
+function GameWin:draw()
 	love.graphics.setColor(Config.color.white)
     self.map:draw(Config.map.xOffset, Config.map.yOffset)
 
@@ -123,12 +113,7 @@ function GameOver:draw()
     
     -- Draw banner text
     love.graphics.setFont(Config.ui.font.md)
-    love.graphics.printf('Game Over', 393, 150, 260, 'center')
-
-    -- Draw round score
-    love.graphics.setColor(Config.color.black)
-    love.graphics.setFont(Config.ui.font.lg)
-    love.graphics.printf(_CurrRound, 380, 330, 260, 'center')
+    love.graphics.printf('You Won!', 393, 150, 260, 'center')
 
 	-- Draw textareas
 	for __, textArea in pairs(self.textAreas) do
@@ -142,4 +127,4 @@ function GameOver:draw()
 	end
 end
 
-return GameOver
+return GameWin

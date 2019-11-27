@@ -9,7 +9,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 8,
-  nextobjectid = 53,
+  nextobjectid = 55,
   properties = {},
   tilesets = {
     {
@@ -150,7 +150,7 @@ return {
       properties = {},
       encoding = "base64",
       compression = "zlib",
-      data = "eAFjYBgFoyEwGgKDOQQKcDgOJD4PhxwucRzK8QrLMuKVZmAkII9fN2FZFRqbT9gFpKtgHoJuxuVLDgJ+YSUgj8vcoSLOA/QfJwl+BKnnI0H9YA+HxzgcCBMnJWxwGDXshLmGUfwPhsiRBTpCEYrlsDiIkDwWLSQJyQNVK0OxAhadhOSxaBkVAoYAADBzBoc="
+      data = "eAFjYBgFoyEwGgKDPQSOkejA0ySqx6dclhGfLAMDIwF5/LoJy6rQ2HzCLiBdBTMV3cxBRbNI9wlhHax0dh8oPRJKk4RdTbwKHqB9nCT4EaSejwT1hFzCRWXzCNlHrLwA1I+khA2xZg91daA4oxbQBpolCMTSQCwGxHJALAzEIkA8UoAs0KOKUCyHxdOE5LFoIUlIHqhaGYoVsOgkJI9Fy6gQMAQA+dgFVg=="
     },
     {
       type = "tilelayer",
@@ -310,7 +310,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["Align"] = "left",
+            ["Align"] = "right",
             ["Color"] = "gray",
             ["Font"] = "xs",
             ["yOffset"] = 0
@@ -328,7 +328,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["Align"] = "left",
+            ["Align"] = "right",
             ["Color"] = "gray",
             ["Font"] = "xs",
             ["yOffset"] = 0
@@ -349,6 +349,7 @@ return {
             ["Align"] = "left",
             ["Color"] = "gray",
             ["Font"] = "xs",
+            ["xOffset"] = 20,
             ["yOffset"] = 0
           }
         },
@@ -382,7 +383,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["Align"] = "left",
+            ["Align"] = "right",
             ["Color"] = "gray",
             ["Font"] = "xs",
             ["yOffset"] = 0
@@ -420,6 +421,7 @@ return {
             ["Align"] = "left",
             ["Color"] = "gray",
             ["Font"] = "xs",
+            ["xOffset"] = 20,
             ["yOffset"] = 0
           }
         },
@@ -473,6 +475,7 @@ return {
             ["Align"] = "right",
             ["Color"] = "gray",
             ["Font"] = "xs",
+            ["xOffset"] = 20,
             ["yOffset"] = 0
           }
         },
@@ -515,10 +518,10 @@ return {
           name = "*Wrap tiles are light brown located in the Void.",
           type = "",
           shape = "rectangle",
-          x = 288,
-          y = 320,
-          width = 257.333,
-          height = 32,
+          x = 320,
+          y = 303,
+          width = 225.333,
+          height = 49,
           rotation = 0,
           visible = true,
           properties = {
@@ -530,13 +533,13 @@ return {
         },
         {
           id = 43,
-          name = "Set cursor in Wrap tile marked by indicator.",
+          name = "Set the cursor in a wrap tile marked by the indicator.",
           type = "",
           shape = "rectangle",
           x = 320,
           y = 256,
           width = 222.667,
-          height = 62.6667,
+          height = 44.6667,
           rotation = 0,
           visible = true,
           properties = {
@@ -551,7 +554,7 @@ return {
           name = "How to Play",
           type = "",
           shape = "rectangle",
-          x = 320,
+          x = 352,
           y = 224,
           width = 160,
           height = 32,
@@ -564,11 +567,11 @@ return {
         },
         {
           id = 46,
-          name = "Spend Magic to Summon Priest",
+          name = "Spend Magic to Summon Priests",
           type = "",
           shape = "rectangle",
           x = 320,
-          y = 384,
+          y = 352,
           width = 224,
           height = 32,
           rotation = 0,
@@ -582,54 +585,36 @@ return {
         },
         {
           id = 47,
-          name = "Spend your magic wisely.",
+          name = "Spend your magic wisely. It's hard to come by.",
           type = "",
           shape = "rectangle",
           x = 288,
-          y = 416,
+          y = 384,
           width = 256,
-          height = 32,
+          height = 45,
           rotation = 0,
           visible = true,
           properties = {
             ["Align"] = "left",
             ["Color"] = "gray",
-            ["Font"] = "xs",
-            ["xOffset"] = 10
+            ["Font"] = "xs"
           }
         },
         {
           id = 48,
-          name = "Killing monsters will replenish magic.",
+          name = "However, killing monsters will replenish your magic supply.",
           type = "",
           shape = "rectangle",
           x = 352,
-          y = 448,
+          y = 441,
           width = 192,
-          height = 64,
+          height = 73,
           rotation = 0,
           visible = true,
           properties = {
             ["Align"] = "left",
             ["Color"] = "gray",
             ["Font"] = "xs",
-            ["xOffset"] = 10
-          }
-        },
-        {
-          id = 49,
-          name = "Last as long as you can!!",
-          type = "",
-          shape = "rectangle",
-          x = 288,
-          y = 544,
-          width = 238.667,
-          height = 62.6667,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["Color"] = "black",
-            ["Font"] = "md",
             ["xOffset"] = 10
           }
         },
@@ -647,6 +632,41 @@ return {
           properties = {
             ["Color"] = "black",
             ["Font"] = "sm"
+          }
+        },
+        {
+          id = 53,
+          name = "...and remember: Protect the banner!!",
+          type = "",
+          shape = "rectangle",
+          x = 289,
+          y = 519,
+          width = 191,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "left",
+            ["Color"] = "black",
+            ["Font"] = "sm",
+            ["xOffset"] = 10
+          }
+        },
+        {
+          id = 54,
+          name = "Good luck and Godspeed! The world is counting on you.",
+          type = "",
+          shape = "rectangle",
+          x = 289,
+          y = 568,
+          width = 233,
+          height = 43,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Align"] = "left",
+            ["Color"] = "gray",
+            ["Font"] = "xs"
           }
         }
       }
