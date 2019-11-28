@@ -4,7 +4,6 @@
 require 'src.config'
 
 -- Vendor packages
-Inspect   = require 'inspect'
 Gamestate = require 'vendor.hump.gamestate'
 Timer     = require 'vendor.hump.timer'
 Bump      = require 'vendor.bump.bump'
@@ -20,7 +19,7 @@ function love.load()
     _HighRound   = 0
 
     Gamestate.registerEvents()
-    Gamestate.switch(Game)
+    Gamestate.switch(Menu)
 end
 
 -- Controls - Key Press
