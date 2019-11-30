@@ -219,7 +219,7 @@ return {
         },
         {
           id = 13,
-          name = "Priest vs Monsters",
+          name = "Priests vs Monsters",
           type = "",
           shape = "rectangle",
           x = 368,
