@@ -27,6 +27,15 @@ function Placement:new(x, y, width, height)
 	})
 end
 
+-- Resume after escaping placement mode
+--
+function Placement:resume()
+	self.isPicking = false
+	
+	Game.isPicking = nil
+	Game.isPaused  = false
+end
+
 -- Purchase Priest (w/ validation)
 --
 function Placement:placePriest(name)
@@ -36,11 +45,7 @@ function Placement:placePriest(name)
 		)
 
 		self.hasPriest = true
-		self.isPicking = false
-
-		-- reset
-		Game.isPaused  = false
-		Game.isPicking = nil
+		self:resume()
 
 		-- purchase!
 		Game.magic = Game.magic - Config.economy.cost[name]

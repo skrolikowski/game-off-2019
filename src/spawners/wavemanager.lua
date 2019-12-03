@@ -39,7 +39,7 @@ function WaveManager:bootstrap(layer)
     self.timer:every(
     	Config.rounds.delay,
     	function() self:startRound() end,
-    	Config.rounds.total - 1
+    	Config.rounds.total
     )
 end
 

@@ -9,15 +9,15 @@ function Vampire:new(x, y)
     Monster.new(self, x, y)
 
     self.name = 'skull'
-    self.sx   = 1.5
-	self.sy   = 1.5
+    self.sx   = 1.75
+	self.sy   = 1.75
 	self.mass = 5
 	self.value    = 0.025  -- 40 / coin
 	self.maxSpeed = 20
     self.maxForce = 10
     self.atkStr   = 3
     self.scale    = { min = 1.5, max = 2 }
-    self.health   = { now = 25, max = 25 }
+    self.health   = { now = 35, max = 35 }
 
 	self.sprite = Animator()
 	self.sprite:addAnimation('default', {

@@ -84,7 +84,7 @@ function Game:registerControls()
 	love.mouse.setCursor(Config.ui.cursor.secondary)
 
 	-- keyboard events
-    _:on('key_escape', function() self:pauseGame()     end)
+    _:on('key_escape', function() self:onEscape()      end)
     _:on('key_q',      function() self:switchToMenu()  end)
 	_:on('key_1',      function() self:makePlacement('range') end)
 	_:on('key_2',      function() self:makePlacement('trap')  end)
@@ -156,10 +156,19 @@ function Game:makePlacement(name)
 	end
 end
 
+-- Event - ESC key pressed
+--
+function Game:onEscape()
+	if self.isPicking then
+		self.isPicking:resume()
+	else
+		self:pauseGame()
+	end
+end
+
 -- Pause/unpause game
 --
 function Game:pauseGame()
--- love.event.quit()
 	if self.isPaused then
 		self.isPaused = false
 
